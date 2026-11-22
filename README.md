@@ -8,8 +8,7 @@ Dosen pengampu: Dr. Ir. Indahwati, M.Si
 
 Anggota: Nurhalimah · Arthur · Rifdah · Meliawati
 
-Tautan proyek: <https://ipb.link/ipm-kelompok6> · Repositori: <https://github.com/Nurhalubis/ipm-kelompok6> · Cadangan: [folder Google Drive](https://drive.google.com/drive/folders/1wsTRcEqzCdJr4JJRbSAEMgiVPpeuB_OB)
-
+Tautan proyek: <https://ipb.link/ipm-kelompok6> · Repositori: <https://github.com/Nurhalubis/ipm-kelompok6> 
 ---
 
 ## Ringkasan
