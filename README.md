@@ -7,6 +7,7 @@ Proyek akhir mata kuliah STA2511 Analisis Statistika · Kelompok 6 · Program St
 Dosen pengampu: Dr. Ir. Indahwati, M.Si
 
 Anggota: Nurhalimah · Arthur · Rifdah · Meliawati
+
 Tautan proyek: <https://ipb.link/ipm-kelompok6> · Repositori: <https://github.com/Nurhalubis/ipm-kelompok6-analisisstatistika> 
 ---
 
