@@ -1,0 +1,514 @@
+"Provinsi","Kode Kabupaten/Kota","Kabupaten/Kota","IPM (Y)","Persentase penduduk berumur 5 tahun ke atas yang mengakses internet selama tiga bulan terakhir (X1)","Persentase rumah tangga yang memiliki akses terhadap sanitasi layak  (X2)","Persentase penduduk usia 25   keatas dengan pendidikan SMA ke atas (X3)"
+"Aceh","1101","Kabupaten SIMEULUE",71.94,"71.63",78.94,49.67
+"Aceh","1102","Kabupaten ACEH SINGKIL",72.62,"73.81",67.35,42.95
+"Aceh","1103","Kabupaten ACEH SELATAN",72.79,"63.23",78.42,43.4
+"Aceh","1104","Kabupaten ACEH TENGGARA",74.36,"67.37",66.67,58.09
+"Aceh","1105","Kabupaten ACEH TIMUR",72.2,"58.43",75.14,34.96
+"Aceh","1106","Kabupaten ACEH TENGAH",78.09,"76.25",87.91,59.35
+"Aceh","1107","Kabupaten ACEH BARAT",76.3,"72.99",92.55,50.94
+"Aceh","1108","Kabupaten ACEH BESAR",77.46,"72.80",90.81,61.24
+"Aceh","1109","Kabupaten PIDIE",74.46,"59.68",57.03,46.6
+"Aceh","1110","Kabupaten BIREUEN",76.29,"71.01",89.96,49.66
+"Aceh","1111","Kabupaten ACEH UTARA",74.29,"62.95",84.96,45.5
+"Aceh","1112","Kabupaten ACEH BARAT DAYA",72.1,"68.64",71.5,44.02
+"Aceh","1113","Kabupaten GAYO LUES",72.61,"68.80",56.83,42.09
+"Aceh","1114","Kabupaten ACEH TAMIANG",74.78,"72.17",87.41,44.36
+"Aceh","1115","Kabupaten NAGAN RAYA",73.87,"74.47",88.12,52.22
+"Aceh","1116","Kabupaten ACEH JAYA",74.2,"73.11",83.17,41.34
+"Aceh","1117","Kabupaten BENER MERIAH",77.48,"74.02",91.16,52.42
+"Aceh","1118","Kabupaten PIDIE JAYA",77.04,"58.03",82.09,45.9
+"Aceh","1171","Kota BANDA ACEH",89.55,"91.82",99.22,83.4
+"Aceh","1172","Kota SABANG",80.04,"82.79",95.99,65.15
+"Aceh","1173","Kota LANGSA",81.77,"82.82",95.08,69.47
+"Aceh","1174","Kota LHOKSEUMAWE",81.75,"80.64",94.33,68.23
+"Aceh","1175","Kota SUBULUSSALAM",71.63,"85.23",64.22,41.89
+"Sumatera Utara","1201","Kabupaten NIAS",66.79,"57.97",33.91,25.95
+"Sumatera Utara","1202","Kabupaten MANDAILING NATAL",74.26,"61.75",48.89,37.2
+"Sumatera Utara","1203","Kabupaten TAPANULI SELATAN",75.78,"76.70",64.68,47.52
+"Sumatera Utara","1204","Kabupaten TAPANULI TENGAH",73.97,"83.25",65.12,39.43
+"Sumatera Utara","1205","Kabupaten TAPANULI UTARA",78.09,"87.28",92.62,61.21
+"Sumatera Utara","1206","Kabupaten TOBA SAMOSIR",79.17,"80.42",94.65,59.56
+"Sumatera Utara","1207","Kabupaten LABUHAN BATU",75.79,"76.67",92.72,44.21
+"Sumatera Utara","1208","Kabupaten ASAHAN",75.13,"76.92",94.44,40.45
+"Sumatera Utara","1209","Kabupaten SIMALUNGUN",76.48,"81.85",98.05,48.42
+"Sumatera Utara","1210","Kabupaten DAIRI",76.68,"85.52",97.71,53.53
+"Sumatera Utara","1211","Kabupaten KARO",78.1,"85.30",92.33,58.59
+"Sumatera Utara","1212","Kabupaten DELI SERDANG",78.29,"78.88",97.02,63.98
+"Sumatera Utara","1213","Kabupaten LANGKAT",75.58,"73.49",90.81,40.73
+"Sumatera Utara","1214","Kabupaten NIAS SELATAN",66.74,"53.38",22.63,34.42
+"Sumatera Utara","1215","Kabupaten HUMBANG HASUNDUTAN",73.93,"82.78",97.58,53.29
+"Sumatera Utara","1216","Kabupaten PAKPAK BHARAT",73.89,"85.35",89.02,50.26
+"Sumatera Utara","1217","Kabupaten SAMOSIR",74.63,"83.39",97.99,57.96
+"Sumatera Utara","1218","Kabupaten SERDANG BEDAGAI",74.69,"70.22",95.87,40.67
+"Sumatera Utara","1219","Kabupaten BATU BARA",73.92,"78.13",93.49,39.74
+"Sumatera Utara","1220","Kabupaten PADANG LAWAS UTARA",75.12,"74.03",83.58,54.39
+"Sumatera Utara","1221","Kabupaten PADANG LAWAS",73.9,"84.02",66.39,42.8
+"Sumatera Utara","1222","Kabupaten LABUHAN BATU SELATAN",75.74,"83.98",86.23,44.24
+"Sumatera Utara","1223","Kabupaten LABUHAN BATU UTARA",76.71,"81.60",91.13,40.23
+"Sumatera Utara","1224","Kabupaten NIAS UTARA",67.38,"72.13",59.43,33.03
+"Sumatera Utara","1225","Kabupaten NIAS BARAT",66.65,"61.67",50.34,33.17
+"Sumatera Utara","1271","Kota SIBOLGA",78.11,"93.01",49.41,56.03
+"Sumatera Utara","1272","Kota TANJUNG BALAI",76.7,"80.43",92.45,47.49
+"Sumatera Utara","1273","Kota PEMATANG SIANTAR",81.71,"90.86",93.41,70.77
+"Sumatera Utara","1274","Kota TEBING TINGGI",79.26,"84.10",98.29,60.33
+"Sumatera Utara","1275","Kota MEDAN",83.74,"87.90",93.15,72.82
+"Sumatera Utara","1276","Kota BINJAI",79.2,"83.47",98.5,62.03
+"Sumatera Utara","1277","Kota PADANGSIDIMPUAN",79.19,"89.53",54.69,64.74
+"Sumatera Utara","1278","Kota GUNUNGSITOLI",73.29,"75.19",58.97,49.8
+"Sumatera Barat","1301","Kabupaten KEPULAUAN MENTAWAI",67.62,"54.01",79.06,34.92
+"Sumatera Barat","1302","Kabupaten PESISIR SELATAN",73.72,"74.56",84.5,41.58
+"Sumatera Barat","1303","Kabupaten SOLOK",73.26,"79.58",57.11,35.41
+"Sumatera Barat","1304","Kabupaten SIJUNJUNG",73.73,"74.32",75.49,38.31
+"Sumatera Barat","1305","Kabupaten TANAH DATAR",77.04,"79.10",69.6,47.18
+"Sumatera Barat","1306","Kabupaten PADANG PARIAMAN",75.71,"74.52",65.76,42.67
+"Sumatera Barat","1307","Kabupaten AGAM",76.04,"77.59",79.29,44.75
+"Sumatera Barat","1308","Kabupaten LIMA PULUH KOTA",73.43,"77.16",65.79,42.45
+"Sumatera Barat","1309","Kabupaten PASAMAN",71.6,"76.72",53.74,34.31
+"Sumatera Barat","1310","Kabupaten SOLOK SELATAN",74.01,"85.00",60.32,41.24
+"Sumatera Barat","1311","Kabupaten DHARMASRAYA",75.7,"93.34",83.12,46.35
+"Sumatera Barat","1312","Kabupaten PASAMAN BARAT",73.69,"74.68",74.02,41.3
+"Sumatera Barat","1371","Kota PADANG",84.93,"88.30",80.28,69.04
+"Sumatera Barat","1372","Kota SOLOK",80.9,"92.68",93.09,63.25
+"Sumatera Barat","1373","Kota SAWAH LUNTO",77.05,"82.43",87.71,56.18
+"Sumatera Barat","1374","Kota PADANG PANJANG",81.32,"91.69",84.62,69.45
+"Sumatera Barat","1375","Kota BUKITTINGGI",83.05,"89.48",89.33,63.69
+"Sumatera Barat","1376","Kota PAYAKUMBUH",81.62,"88.15",92.34,63.6
+"Sumatera Barat","1377","Kota PARIAMAN",81.27,"84.07",87.24,62.42
+"Riau","1401","Kabupaten KUANTAN SINGINGI",74.62,"73.68",93.08,45.99
+"Riau","1402","Kabupaten INDRAGIRI HULU",73.48,"80.69",89.19,36.48
+"Riau","1403","Kabupaten INDRAGIRI HILIR",70.74,"63.60",68.69,25.01
+"Riau","1404","Kabupaten PELALAWAN",75.8,"84.68",92.4,36.12
+"Riau","1405","Kabupaten S I A K",77.19,"85.34",95.38,49.06
+"Riau","1406","Kabupaten KAMPAR",76.97,"78.38",97.65,46.11
+"Riau","1407","Kabupaten ROKAN HULU",73.61,"75.75",94.12,38.05
+"Riau","1408","Kabupaten BENGKALIS",77.02,"82.95",94.13,51.71
+"Riau","1409","Kabupaten ROKAN HILIR",73.07,"84.01",90.71,33.59
+"Riau","1410","Kabupaten KEPULAUAN MERANTI",70.2,"77.05",64.18,33.86
+"Riau","1471","Kota PEKANBARU",84.91,"91.68",97.38,73.52
+"Riau","1473","Kota D U M A I",77.58,"86.06",97.99,52.95
+"Jambi","1501","Kabupaten KERINCI",75.1,"76.78",72.1,38.48
+"Jambi","1502","Kabupaten MERANGIN",73.41,"75.23",82.2,32.45
+"Jambi","1503","Kabupaten SAROLANGUN",74.72,"72.21",87.69,36.19
+"Jambi","1504","Kabupaten BATANG HARI",73.94,"71.20",90.43,34.65
+"Jambi","1505","Kabupaten MUARO JAMBI",73.87,"77.12",91.21,37.23
+"Jambi","1506","Kabupaten TANJUNG JABUNG TIMUR",71.28,"66.87",77.44,24.85
+"Jambi","1507","Kabupaten TANJUNG JABUNG BARAT",73,"73.97",81.6,33.56
+"Jambi","1508","Kabupaten TEBO",73.41,"73.34",85.4,25.89
+"Jambi","1509","Kabupaten BUNGO",75.15,"74.28",84.27,33.17
+"Jambi","1571","Kota JAMBI",82.32,"88.12",95.83,67.6
+"Jambi","1572","Kota SUNGAI PENUH",78.89,"76.09",80.83,60.07
+"Sumatera Selatan","1601","Kabupaten OGAN KOMERING ULU",74.47,"87.41",86.63,41.25
+"Sumatera Selatan","1602","Kabupaten OGAN KOMERING ILIR",72.2,"71.91",77.92,23.97
+"Sumatera Selatan","1603","Kabupaten MUARA ENIM",73.77,"75.87",90.43,34.67
+"Sumatera Selatan","1604","Kabupaten LAHAT",73.75,"76.58",79.06,49.85
+"Sumatera Selatan","1605","Kabupaten MUSI RAWAS",71.92,"72.69",77.38,27.59
+"Sumatera Selatan","1606","Kabupaten MUSI BANYUASIN",73.17,"73.05",91.16,34.49
+"Sumatera Selatan","1607","Kabupaten BANYU ASIN",72.42,"64.31",81.25,27.98
+"Sumatera Selatan","1608","Kabupaten OGAN KOMERING ULU SELATAN",70.98,"73.98",80.99,30.82
+"Sumatera Selatan","1609","Kabupaten OGAN KOMERING ULU TIMUR",74.42,"72.38",91.17,28.51
+"Sumatera Selatan","1610","Kabupaten OGAN ILIR",73.21,"72.28",76.19,29.16
+"Sumatera Selatan","1611","Kabupaten EMPAT LAWANG",70.56,"68.84",71.25,31.83
+"Sumatera Selatan","1612","Kabupaten PENUKAL ABAB LEMATANG ILIR",70.55,"65.87",98.98,28.89
+"Sumatera Selatan","1613","Kabupaten MUSI RAWAS UTARA",71.39,"66.46",77.25,29.3
+"Sumatera Selatan","1671","Kota PALEMBANG",83.27,"85.63",93.29,63.22
+"Sumatera Selatan","1672","Kota PRABUMULIH",79.17,"86.08",94.59,58.64
+"Sumatera Selatan","1673","Kota PAGAR ALAM",74.92,"78.29",69.09,49.4
+"Sumatera Selatan","1674","Kota LUBUKLINGGAU",79.94,"83.64",93.97,52.95
+"Bengkulu","1701","Kabupaten BENGKULU SELATAN",75.32,"79.20",87.2,48.24
+"Bengkulu","1702","Kabupaten REJANG LEBONG",75.87,"75.07",81.43,41.67
+"Bengkulu","1703","Kabupaten BENGKULU UTARA",73.56,"71.31",86.55,30.68
+"Bengkulu","1704","Kabupaten KAUR",72.45,"77.00",92.4,43.27
+"Bengkulu","1705","Kabupaten SELUMA",71.85,"73.91",91.67,35.13
+"Bengkulu","1706","Kabupaten MUKOMUKO",74.45,"76.61",87.27,34.74
+"Bengkulu","1707","Kabupaten LEBONG",74.1,"72.96",52.32,35.53
+"Bengkulu","1708","Kabupaten KEPAHIANG",72.96,"77.83",75.15,39.14
+"Bengkulu","1709","Kabupaten BENGKULU TENGAH",72.48,"72.08",88.84,34.9
+"Bengkulu","1771","Kota BENGKULU",84.59,"90.29",95.72,69.86
+"Lampung","1801","Kabupaten LAMPUNG BARAT",73.14,"84.28",83.19,29.03
+"Lampung","1802","Kabupaten TANGGAMUS",71.36,"75.40",75.13,26.86
+"Lampung","1803","Kabupaten LAMPUNG SELATAN",73.1,"84.04",96.41,28.76
+"Lampung","1804","Kabupaten LAMPUNG TIMUR",73.92,"75.01",88.94,34.13
+"Lampung","1805","Kabupaten LAMPUNG TENGAH",74.86,"77.44",86.78,29.04
+"Lampung","1806","Kabupaten LAMPUNG UTARA",72.28,"68.94",77.23,34.32
+"Lampung","1807","Kabupaten WAY KANAN",71.98,"78.34",81.71,27.63
+"Lampung","1808","Kabupaten TULANGBAWANG",73.11,"81.20",88.78,25.53
+"Lampung","1809","Kabupaten PESAWARAN",70.9,"81.07",88.57,29.04
+"Lampung","1810","Kabupaten PRINGSEWU",74.76,"80.95",88.52,34.81
+"Lampung","1811","Kabupaten MESUJI",69.4,"82.65",90.06,20.34
+"Lampung","1812","Kabupaten TULANG BAWANG BARAT",70.61,"77.14",84.42,22.79
+"Lampung","1813","Kabupaten PESISIR BARAT",71.72,"67.65",89.93,34.39
+"Lampung","1871","Kota BANDAR LAMPUNG",81.26,"86.98",89.66,62.43
+"Lampung","1872","Kota METRO",81.22,"87.51",99.29,63.78
+"Kepulauan Bangka Belitung","1901","Kabupaten BANGKA",75.38,"83.69",97.59,42.47
+"Kepulauan Bangka Belitung","1902","Kabupaten BELITUNG",75.29,"79.41",95.5,44.41
+"Kepulauan Bangka Belitung","1903","Kabupaten BANGKA BARAT",72.23,"79.92",96.5,34.93
+"Kepulauan Bangka Belitung","1904","Kabupaten BANGKA TENGAH",73.1,"80.27",97.75,28.23
+"Kepulauan Bangka Belitung","1905","Kabupaten BANGKA SELATAN",70.83,"78.97",92.56,26.75
+"Kepulauan Bangka Belitung","1906","Kabupaten BELITUNG TIMUR",73.99,"77.72",94.44,42.18
+"Kepulauan Bangka Belitung","1971","Kota PANGKAL PINANG",81.64,"87.42",99.11,62.19
+"Kepulauan Riau","2101","Kabupaten KARIMUN",76.08,"85.81",95.66,44.01
+"Kepulauan Riau","2102","Kabupaten BINTAN",78.65,"86.73",87.92,50.48
+"Kepulauan Riau","2103","Kabupaten NATUNA",78.94,"80.64",77.9,48.46
+"Kepulauan Riau","2104","Kabupaten LINGGA",73.82,"72.53",79.41,36.55
+"Kepulauan Riau","2105","Kabupaten KEPULAUAN ANAMBAS",74.07,"79.07",24.21,37.56
+"Kepulauan Riau","2171","Kota B A T A M",83.8,"94.51",93.63,70.13
+"Kepulauan Riau","2172","Kota TANJUNG PINANG",82.02,"90.14",89.23,59.7
+"DKI Jakarta","3101","Kabupaten KEPULAUAN SERIBU",77.52,"77.56",92.8,42.05
+"DKI Jakarta","3171","Kota JAKARTA SELATAN",88.51,"92.14",93.45,72.11
+"DKI Jakarta","3172","Kota JAKARTA TIMUR",85.51,"91.03",97.81,73.13
+"DKI Jakarta","3173","Kota JAKARTA PUSAT",84.45,"88.22",88.85,70.47
+"DKI Jakarta","3174","Kota JAKARTA BARAT",85.18,"89.44",93,62.99
+"DKI Jakarta","3175","Kota JAKARTA UTARA",83.12,"89.12",92.72,62.04
+"Jawa Barat","3201","Kabupaten BOGOR",74.53,"81.36",67.17,39.12
+"Jawa Barat","3202","Kabupaten SUKABUMI",71.13,"72.76",59.25,25.3
+"Jawa Barat","3203","Kabupaten CIANJUR",69.84,"77.04",61.11,18.04
+"Jawa Barat","3204","Kabupaten BANDUNG",75.58,"80.26",70.4,40.91
+"Jawa Barat","3205","Kabupaten GARUT",70.67,"72.38",53.35,22.34
+"Jawa Barat","3206","Kabupaten TASIKMALAYA",70.76,"67.33",58.76,17.19
+"Jawa Barat","3207","Kabupaten CIAMIS",74.33,"82.67",75.84,24.05
+"Jawa Barat","3208","Kabupaten KUNINGAN",72.31,"73.12",89.38,26.1
+"Jawa Barat","3209","Kabupaten CIREBON",73.27,"77.83",90.78,33.27
+"Jawa Barat","3210","Kabupaten MAJALENGKA",72.37,"74.10",81.85,23.85
+"Jawa Barat","3211","Kabupaten SUMEDANG",75.5,"77.71",86.77,32.99
+"Jawa Barat","3212","Kabupaten INDRAMAYU",71.58,"88.86",93.41,24.59
+"Jawa Barat","3213","Kabupaten SUBANG",73,"79.42",90.56,24.68
+"Jawa Barat","3214","Kabupaten PURWAKARTA",74.97,"79.89",74.37,34.24
+"Jawa Barat","3215","Kabupaten KARAWANG",74.59,"73.35",86.79,36.89
+"Jawa Barat","3216","Kabupaten BEKASI",77.8,"86.05",90.24,60.76
+"Jawa Barat","3217","Kabupaten BANDUNG BARAT",71.65,"76.84",55.95,29.09
+"Jawa Barat","3218","Kabupaten PANGANDARAN",71.66,"69.85",93.02,22.65
+"Jawa Barat","3271","Kota BOGOR",79.75,"90.98",74.41,55.53
+"Jawa Barat","3272","Kota SUKABUMI",78.23,"86.40",46.61,51.56
+"Jawa Barat","3273","Kota BANDUNG",84.66,"89.17",56.5,66.11
+"Jawa Barat","3274","Kota CIREBON",78.99,"85.45",92.67,54.27
+"Jawa Barat","3275","Kota BEKASI",84.43,"92.60",97.93,73.3
+"Jawa Barat","3276","Kota DEPOK",84.04,"93.24",97.68,71.8
+"Jawa Barat","3277","Kota CIMAHI",80.85,"91.18",79.18,62.35
+"Jawa Barat","3278","Kota TASIKMALAYA",76.59,"81.21",56.37,40.88
+"Jawa Barat","3279","Kota BANJAR",75.54,"77.43",93.02,33
+"Jawa Tengah","3301","Kabupaten CILACAP",73.45,"75.09",87.6,24.98
+"Jawa Tengah","3302","Kabupaten BANYUMAS",75.44,"74.85",85.71,31.15
+"Jawa Tengah","3303","Kabupaten PURBALINGGA",71.71,"79.46",77.73,20.72
+"Jawa Tengah","3304","Kabupaten BANJARNEGARA",70.61,"73.92",52.44,20.45
+"Jawa Tengah","3305","Kabupaten KEBUMEN",73.17,"82.64",94.04,29.02
+"Jawa Tengah","3306","Kabupaten PURWOREJO",75.93,"77.13",87.29,38.52
+"Jawa Tengah","3307","Kabupaten WONOSOBO",71.5,"76.88",62.58,15.83
+"Jawa Tengah","3308","Kabupaten MAGELANG",73.09,"76.25",80.94,29.58
+"Jawa Tengah","3309","Kabupaten BOYOLALI",76.95,"75.81",89,35.87
+"Jawa Tengah","3310","Kabupaten KLATEN",78.68,"74.55",95.78,45.33
+"Jawa Tengah","3311","Kabupaten SUKOHARJO",79.9,"81.69",96.27,51.23
+"Jawa Tengah","3312","Kabupaten WONOGIRI",73.42,"73.12",98.59,26.86
+"Jawa Tengah","3313","Kabupaten KARANGANYAR",78.67,"75.09",98.66,36.92
+"Jawa Tengah","3314","Kabupaten SRAGEN",76.38,"73.77",97.33,33.35
+"Jawa Tengah","3315","Kabupaten GROBOGAN",72.94,"74.64",97.19,19.66
+"Jawa Tengah","3316","Kabupaten BLORA",72.35,"74.30",92.46,29.47
+"Jawa Tengah","3317","Kabupaten REMBANG",73.4,"73.72",97.02,26.27
+"Jawa Tengah","3318","Kabupaten PATI",74.98,"75.10",92.97,31.06
+"Jawa Tengah","3319","Kabupaten KUDUS",77.94,"83.70",96.56,43.05
+"Jawa Tengah","3320","Kabupaten JEPARA",74.9,"72.48",71.71,22.92
+"Jawa Tengah","3321","Kabupaten DEMAK",75.08,"76.02",94.03,28.68
+"Jawa Tengah","3322","Kabupaten SEMARANG",76.4,"79.68",87.99,32.02
+"Jawa Tengah","3323","Kabupaten TEMANGGUNG",72.52,"72.71",74.98,22.91
+"Jawa Tengah","3324","Kabupaten KENDAL",75.07,"79.94",82.83,30.49
+"Jawa Tengah","3325","Kabupaten BATANG",71.7,"70.01",68.38,21.61
+"Jawa Tengah","3326","Kabupaten PEKALONGAN",72.71,"75.65",83.76,22.88
+"Jawa Tengah","3327","Kabupaten PEMALANG",69.47,"76.03",83.39,16.8
+"Jawa Tengah","3328","Kabupaten TEGAL",72.36,"77.48",91.2,20.53
+"Jawa Tengah","3329","Kabupaten BREBES",71.18,"75.89",83.87,17.46
+"Jawa Tengah","3371","Kota MAGELANG",82.92,"85.58",90.57,65.67
+"Jawa Tengah","3372","Kota SURAKARTA",84.92,"87.76",88.01,61.39
+"Jawa Tengah","3373","Kota SALATIGA",86.23,"87.87",94.22,57.9
+"Jawa Tengah","3374","Kota SEMARANG",85.8,"89.21",98.22,63.53
+"Jawa Tengah","3375","Kota PEKALONGAN",77.76,"83.59",88.2,38.34
+"Jawa Tengah","3376","Kota TEGAL",77.95,"80.68",94.13,40.63
+"DI Yogyakarta","3401","Kabupaten KULON PROGO",76.97,"78.44",98.07,46.35
+"DI Yogyakarta","3402","Kabupaten BANTUL",83.03,"80.70",95.25,57.84
+"DI Yogyakarta","3403","Kabupaten GUNUNG KIDUL",73.13,"72.59",98.34,30.53
+"DI Yogyakarta","3404","Kabupaten SLEMAN",86.35,"86.48",97.57,66.43
+"DI Yogyakarta","3471","Kota YOGYAKARTA",89.53,"91.18",95.67,71.36
+"Jawa Timur","3501","Kabupaten PACITAN",72.26,"67.62",83.57,25.03
+"Jawa Timur","3502","Kabupaten PONOROGO",74.65,"74.22",93.28,30.38
+"Jawa Timur","3503","Kabupaten TRENGGALEK",73.39,"71.93",86.53,27.12
+"Jawa Timur","3504","Kabupaten TULUNGAGUNG",75.88,"74.72",90.08,31.01
+"Jawa Timur","3505","Kabupaten BLITAR",74.43,"87.33",88.19,30.11
+"Jawa Timur","3506","Kabupaten KEDIRI",76.09,"72.73",94.35,31.94
+"Jawa Timur","3507","Kabupaten MALANG",74.45,"76.04",89.16,29.58
+"Jawa Timur","3508","Kabupaten LUMAJANG",71.02,"65.90",82.91,20.68
+"Jawa Timur","3509","Kabupaten JEMBER",71.57,"67.34",72.92,21.13
+"Jawa Timur","3510","Kabupaten BANYUWANGI",75.17,"76.06",87.92,29.37
+"Jawa Timur","3511","Kabupaten BONDOWOSO",71.72,"58.84",65.34,22.88
+"Jawa Timur","3512","Kabupaten SITUBONDO",71.87,"64.75",68.31,28.11
+"Jawa Timur","3513","Kabupaten PROBOLINGGO",71.65,"65.73",73.02,21.86
+"Jawa Timur","3514","Kabupaten PASURUAN",73.02,"69.14",87.57,25.46
+"Jawa Timur","3515","Kabupaten SIDOARJO",83.35,"85.76",97.96,63.63
+"Jawa Timur","3516","Kabupaten MOJOKERTO",77.46,"74.92",92.19,38.81
+"Jawa Timur","3517","Kabupaten JOMBANG",76.37,"75.82",97.32,37.63
+"Jawa Timur","3518","Kabupaten NGANJUK",75.89,"68.27",92.66,31.04
+"Jawa Timur","3519","Kabupaten MADIUN",75.47,"72.31",92.99,33.79
+"Jawa Timur","3520","Kabupaten MAGETAN",77.58,"70.54",91.47,38.73
+"Jawa Timur","3521","Kabupaten NGAWI",74.43,"70.10",86.98,30.7
+"Jawa Timur","3522","Kabupaten BOJONEGORO",73.74,"66.13",95.51,27.66
+"Jawa Timur","3523","Kabupaten TUBAN",73.15,"66.85",90.6,23.54
+"Jawa Timur","3524","Kabupaten LAMONGAN",76.81,"73.65",93.76,37.42
+"Jawa Timur","3525","Kabupaten GRESIK",79.69,"82.91",97.7,52.87
+"Jawa Timur","3526","Kabupaten BANGKALAN",68.15,"62.78",71.82,19.44
+"Jawa Timur","3527","Kabupaten SAMPANG",67.23,"65.43",88.8,15.44
+"Jawa Timur","3528","Kabupaten PAMEKASAN",71.64,"67.83",76.19,28.78
+"Jawa Timur","3529","Kabupaten SUMENEP",70.54,"62.01",81.09,25.63
+"Jawa Timur","3571","Kota KEDIRI",82.71,"90.45",98.19,61.77
+"Jawa Timur","3572","Kota BLITAR",82.03,"86.47",97.99,59.2
+"Jawa Timur","3573","Kota MALANG",85.55,"88.70",89.51,65.35
+"Jawa Timur","3574","Kota PROBOLINGGO",78.5,"79.01",93.27,49.25
+"Jawa Timur","3575","Kota PASURUAN",79.52,"84.23",91.29,51.97
+"Jawa Timur","3576","Kota MOJOKERTO",82.35,"86.63",99.01,68.23
+"Jawa Timur","3577","Kota MADIUN",85.12,"85.65",98.38,71.02
+"Jawa Timur","3578","Kota SURABAYA",85.65,"89.16",99.81,64.7
+"Jawa Timur","3579","Kota BATU",80.35,"85.28",96.66,46.98
+"Banten","3601","Kabupaten PANDEGLANG",71.84,"67.71",63.4,23.6
+"Banten","3602","Kabupaten LEBAK",69.24,"66.27",81.07,14.74
+"Banten","3603","Kabupaten TANGERANG",76.74,"82.10",91.37,41.08
+"Banten","3604","Kabupaten SERANG",74.1,"73.53",88.54,27.54
+"Banten","3671","Kota TANGERANG",82.41,"91.26",99.72,67.72
+"Banten","3672","Kota CILEGON",79.54,"86.44",97.73,56.24
+"Banten","3673","Kota SERANG",77.5,"79.51",94.83,36.97
+"Banten","3674","Kota TANGERANG SELATAN",84.81,"88.62",99.43,72.34
+"Bali","5101","Kabupaten JEMBRANA",75.94,"77.80",96.79,37.42
+"Bali","5102","Kabupaten TABANAN",79.7,"76.86",98.48,51.42
+"Bali","5103","Kabupaten BADUNG",84.27,"87.48",100,66.84
+"Bali","5104","Kabupaten GIANYAR",80.96,"77.17",99.38,54
+"Bali","5105","Kabupaten KLUNGKUNG",75.89,"69.34",99.57,36.74
+"Bali","5106","Kabupaten BANGLI",73.22,"73.50",94.64,30.3
+"Bali","5107","Kabupaten KARANG ASEM",71.89,"67.79",94.9,28.54
+"Bali","5108","Kabupaten BULELENG",76.06,"76.57",95.8,33.42
+"Bali","5171","Kota DENPASAR",85.63,"92.24",99.92,66.53
+"Nusa Tenggara Barat","5201","Kabupaten LOMBOK BARAT",73.52,"69.34",80.76,27.63
+"Nusa Tenggara Barat","5202","Kabupaten LOMBOK TENGAH",72.07,"69.44",86.45,31.02
+"Nusa Tenggara Barat","5203","Kabupaten LOMBOK TIMUR",72.35,"69.78",89.43,30.22
+"Nusa Tenggara Barat","5204","Kabupaten SUMBAWA",73.27,"80.27",92.7,38.47
+"Nusa Tenggara Barat","5205","Kabupaten DOMPU",73.58,"66.21",86.46,46.91
+"Nusa Tenggara Barat","5206","Kabupaten BIMA",71.97,"80.67",89.09,43.42
+"Nusa Tenggara Barat","5207","Kabupaten SUMBAWA BARAT",76.46,"81.89",98.05,45.71
+"Nusa Tenggara Barat","5208","Kabupaten LOMBOK UTARA",69.63,"60.48",87.69,25.86
+"Nusa Tenggara Barat","5271","Kota MATARAM",82.37,"85.24",92.05,51.45
+"Nusa Tenggara Barat","5272","Kota BIMA",79.41,"86.43",92.87,60.94
+"Nusa Tenggara Timur","5301","Kabupaten SUMBA BARAT",68.46,"47.57",62.82,34.41
+"Nusa Tenggara Timur","5302","Kabupaten SUMBA TIMUR",70.99,"69.16",70.1,33.68
+"Nusa Tenggara Timur","5303","Kabupaten KUPANG",69.03,"54.22",77.12,33.06
+"Nusa Tenggara Timur","5304","Kabupaten TIMOR TENGAH SELATAN",66.88,"48.32",71.13,30.08
+"Nusa Tenggara Timur","5305","Kabupaten TIMOR TENGAH UTARA",67.87,"63.68",84.31,37.35
+"Nusa Tenggara Timur","5306","Kabupaten BELU",68.89,"59.48",86.89,28.78
+"Nusa Tenggara Timur","5307","Kabupaten ALOR",68.44,"60.89",88.39,36.9
+"Nusa Tenggara Timur","5308","Kabupaten LEMBATA",69.7,"68.70",92.61,34.06
+"Nusa Tenggara Timur","5309","Kabupaten FLORES TIMUR",70.61,"66.09",95.13,33.82
+"Nusa Tenggara Timur","5310","Kabupaten SIKKA",70.65,"67.81",87.12,30.7
+"Nusa Tenggara Timur","5311","Kabupaten ENDE",72.73,"67.65",94.12,39.04
+"Nusa Tenggara Timur","5312","Kabupaten NGADA",72.53,"55.39",94.51,31.06
+"Nusa Tenggara Timur","5313","Kabupaten MANGGARAI",70.1,"72.45",69.37,30.73
+"Nusa Tenggara Timur","5314","Kabupaten ROTE NDAO",67.01,"61.83",88.19,28.18
+"Nusa Tenggara Timur","5315","Kabupaten MANGGARAI BARAT",69.2,"75.63",84.76,29.34
+"Nusa Tenggara Timur","5316","Kabupaten SUMBA TENGAH",65.29,"46.52",62.31,32.93
+"Nusa Tenggara Timur","5317","Kabupaten SUMBA BARAT DAYA",64.82,"49.93",58.48,30.46
+"Nusa Tenggara Timur","5318","Kabupaten NAGEKEO",70.48,"55.15",93.58,32.62
+"Nusa Tenggara Timur","5319","Kabupaten MANGGARAI TIMUR",66.63,"61.52",64.18,24.11
+"Nusa Tenggara Timur","5320","Kabupaten SABU RAIJUA",62.74,"56.82",86.96,23.32
+"Nusa Tenggara Timur","5321","Kabupaten MALAKA",65.84,"48.51",75.48,30.31
+"Nusa Tenggara Timur","5371","Kota KUPANG",83.65,"88.26",93.47,63.96
+"Kalimantan Barat","6101","Kabupaten SAMBAS",72.08,"79.31",94.56,25.46
+"Kalimantan Barat","6102","Kabupaten BENGKAYANG",70.99,"75.28",88.34,30.41
+"Kalimantan Barat","6103","Kabupaten LANDAK",69.92,"65.57",76.31,32.32
+"Kalimantan Barat","6104","Kabupaten MEMPAWAH",70.59,"82.40",90.04,29.53
+"Kalimantan Barat","6105","Kabupaten SANGGAU",70.36,"71.93",80.3,31.31
+"Kalimantan Barat","6106","Kabupaten KETAPANG",71.3,"72.41",91,28.94
+"Kalimantan Barat","6107","Kabupaten SINTANG",70.92,"70.28",82.87,30.01
+"Kalimantan Barat","6108","Kabupaten KAPUAS HULU",69.24,"70.97",83.98,28.69
+"Kalimantan Barat","6109","Kabupaten SEKADAU",68.73,"65.43",85.31,26.97
+"Kalimantan Barat","6110","Kabupaten MELAWI",69.8,"73.47",80.1,32.59
+"Kalimantan Barat","6111","Kabupaten KAYONG UTARA",67.6,"72.56",87.61,22.16
+"Kalimantan Barat","6112","Kabupaten KUBU RAYA",72.01,"76.46",90.02,29.6
+"Kalimantan Barat","6171","Kota PONTIANAK",82.8,"89.46",98.93,58.03
+"Kalimantan Barat","6172","Kota SINGKAWANG",75.67,"82.94",96.08,41.85
+"Kalimantan Tengah","6201","Kabupaten KOTAWARINGIN BARAT",76.02,"88.63",94.37,38.25
+"Kalimantan Tengah","6202","Kabupaten KOTAWARINGIN TIMUR",74.96,"78.56",83.44,31.98
+"Kalimantan Tengah","6203","Kabupaten KAPUAS",73.47,"74.30",69.65,29.67
+"Kalimantan Tengah","6204","Kabupaten BARITO SELATAN",75.21,"76.22",68.44,42.46
+"Kalimantan Tengah","6205","Kabupaten BARITO UTARA",73.58,"84.69",85.04,35.52
+"Kalimantan Tengah","6206","Kabupaten SUKAMARA",71.45,"80.68",88.48,30.29
+"Kalimantan Tengah","6207","Kabupaten LAMANDAU",74.46,"82.13",91.96,28.54
+"Kalimantan Tengah","6208","Kabupaten SERUYAN",71.24,"79.84",76.46,29.63
+"Kalimantan Tengah","6209","Kabupaten KATINGAN",74.68,"74.64",87.39,31.01
+"Kalimantan Tengah","6210","Kabupaten PULANG PISAU",72.99,"79.51",71.63,30.86
+"Kalimantan Tengah","6211","Kabupaten GUNUNG MAS",74.46,"75.97",82,36.41
+"Kalimantan Tengah","6212","Kabupaten BARITO TIMUR",75.5,"80.64",90.62,45.21
+"Kalimantan Tengah","6213","Kabupaten MURUNG RAYA",72.34,"77.89",80.76,29.82
+"Kalimantan Tengah","6271","Kota PALANGKA RAYA",82.98,"89.96",94.99,63.5
+"Kalimantan Selatan","6301","Kabupaten TANAH LAUT",74.32,"83.05",79.12,29.05
+"Kalimantan Selatan","6302","Kabupaten KOTA BARU",73.03,"76.44",80.87,30.96
+"Kalimantan Selatan","6303","Kabupaten BANJAR",75.11,"78.86",84.44,33.9
+"Kalimantan Selatan","6304","Kabupaten BARITO KUALA",72.05,"74.86",63.05,30.27
+"Kalimantan Selatan","6305","Kabupaten TAPIN",74.98,"75.78",86.05,33.56
+"Kalimantan Selatan","6306","Kabupaten HULU SUNGAI SELATAN",74.81,"74.02",87.41,31.34
+"Kalimantan Selatan","6307","Kabupaten HULU SUNGAI TENGAH",74.26,"72.33",90.01,31.93
+"Kalimantan Selatan","6308","Kabupaten HULU SUNGAI UTARA",72.67,"71.53",96.61,28.69
+"Kalimantan Selatan","6309","Kabupaten TABALONG",76.94,"78.53",97.57,45.98
+"Kalimantan Selatan","6310","Kabupaten TANAH BUMBU",75.09,"87.54",92.31,30.93
+"Kalimantan Selatan","6311","Kabupaten BALANGAN",74.78,"75.82",95.58,37.96
+"Kalimantan Selatan","6371","Kota BANJARMASIN",80.88,"80.37",90.02,53.35
+"Kalimantan Selatan","6372","Kota BANJAR BARU",82.2,"87.48",94.17,60.87
+"Kalimantan Timur","6401","Kabupaten PASER",75.85,"80.46",87.67,43.07
+"Kalimantan Timur","6402","Kabupaten KUTAI BARAT",75.38,"79.10",92.82,44.3
+"Kalimantan Timur","6403","Kabupaten KUTAI KARTANEGARA",77.25,"81.81",88.53,43.19
+"Kalimantan Timur","6404","Kabupaten KUTAI TIMUR",76.48,"83.40",91.65,43.73
+"Kalimantan Timur","6405","Kabupaten BERAU",77.72,"85.82",90.36,49.26
+"Kalimantan Timur","6409","Kabupaten PENAJAM PASER UTARA",75.82,"86.41",94.23,40.79
+"Kalimantan Timur","6411","Kabupaten MAHAKAM HULU",71.53,"74.76",68.72,41.91
+"Kalimantan Timur","6471","Kota BALIKPAPAN",83.23,"90.50",95.04,66.02
+"Kalimantan Timur","6472","Kota SAMARINDA",83.53,"88.41",97.91,66.06
+"Kalimantan Timur","6474","Kota BONTANG",83.04,"95.21",91.91,67.6
+"Kalimantan Utara","6501","Kabupaten MALINAU",75.21,"77.59",90.52,46.57
+"Kalimantan Utara","6502","Kabupaten BULUNGAN",74.53,"77.86",94.01,46.24
+"Kalimantan Utara","6503","Kabupaten TANA TIDUNG",71.86,"88.70",97.88,46.61
+"Kalimantan Utara","6504","Kabupaten NUNUKAN",69.87,"78.60",78.38,33.21
+"Kalimantan Utara","6571","Kota TARAKAN",78.62,"86.28",84.93,56.44
+"Sulawesi Utara","7101","Kabupaten BOLAANG MONGONDOW",71.83,"66.56",74.31,27.6
+"Sulawesi Utara","7102","Kabupaten MINAHASA",79.73,"78.04",90.26,58.42
+"Sulawesi Utara","7103","Kabupaten KEPULAUAN SANGIHE",75.18,"60.31",85.43,39.96
+"Sulawesi Utara","7104","Kabupaten KEPULAUAN TALAUD",73.68,"60.21",95.15,45.55
+"Sulawesi Utara","7105","Kabupaten MINAHASA SELATAN",76.47,"73.63",92.32,45.5
+"Sulawesi Utara","7106","Kabupaten MINAHASA UTARA",77.76,"77.51",90,53.19
+"Sulawesi Utara","7107","Kabupaten BOLAANG MONGONDOW UTARA",72.28,"58.63",77.4,35.46
+"Sulawesi Utara","7108","Kabupaten SIAU TAGULANDANG BIARO",72.17,"63.70",97.33,49.3
+"Sulawesi Utara","7109","Kabupaten MINAHASA TENGGARA",74.28,"73.56",89.67,34.9
+"Sulawesi Utara","7110","Kabupaten BOLAANG MONGONDOW SELATAN",70.54,"70.13",76.65,32.41
+"Sulawesi Utara","7111","Kabupaten BOLAANG MONGONDOW TIMUR",71.43,"67.10",76.72,30.22
+"Sulawesi Utara","7171","Kota MANADO",82.4,"81.90",90.82,69.2
+"Sulawesi Utara","7172","Kota BITUNG",77.57,"83.02",92.71,54.94
+"Sulawesi Utara","7173","Kota TOMOHON",80.65,"80.00",94.99,57.71
+"Sulawesi Utara","7174","Kota KOTAMOBAGU",77.49,"73.53",76.74,48.86
+"Sulawesi Tengah","7201","Kabupaten BANGGAI KEPULAUAN",68.44,"62.45",77.86,36.38
+"Sulawesi Tengah","7202","Kabupaten BANGGAI",73.44,"70.87",86.02,34.99
+"Sulawesi Tengah","7203","Kabupaten MOROWALI",74.7,"70.46",78.66,36.19
+"Sulawesi Tengah","7204","Kabupaten POSO",74.55,"75.15",91.93,44.63
+"Sulawesi Tengah","7205","Kabupaten DONGGALA",69.23,"60.00",67.25,23.99
+"Sulawesi Tengah","7206","Kabupaten TOLI-TOLI",71.09,"77.92",70.74,35.24
+"Sulawesi Tengah","7207","Kabupaten BUOL",71.47,"71.82",78.77,38.34
+"Sulawesi Tengah","7208","Kabupaten PARIGI MOUTONG",69.99,"68.00",72.45,28.54
+"Sulawesi Tengah","7209","Kabupaten TOJO UNA-UNA",69.76,"66.21",72.21,30.49
+"Sulawesi Tengah","7210","Kabupaten SIGI",71.68,"64.78",80.21,33.99
+"Sulawesi Tengah","7211","Kabupaten BANGGAI LAUT",70.46,"60.25",71.01,30.6
+"Sulawesi Tengah","7212","Kabupaten MOROWALI UTARA",72.16,"69.33",86.88,35.68
+"Sulawesi Tengah","7271","Kota PALU",84.53,"82.70",90.01,59.19
+"Sulawesi Selatan","7301","Kabupaten KEPULAUAN SELAYAR",72.78,"69.03",90.41,39.94
+"Sulawesi Selatan","7302","Kabupaten BULUKUMBA",75.26,"69.56",89.88,39.11
+"Sulawesi Selatan","7303","Kabupaten BANTAENG",73.12,"76.06",80.35,35.03
+"Sulawesi Selatan","7304","Kabupaten JENEPONTO",70.25,"70.60",89.76,26.93
+"Sulawesi Selatan","7305","Kabupaten TAKALAR",72.79,"70.41",97.53,33.85
+"Sulawesi Selatan","7306","Kabupaten GOWA",74.22,"77.13",98.48,41.33
+"Sulawesi Selatan","7307","Kabupaten SINJAI",72.76,"68.05",89.91,32.89
+"Sulawesi Selatan","7308","Kabupaten MAROS",74.79,"81.29",97.85,42.27
+"Sulawesi Selatan","7309","Kabupaten PANGKAJENE DAN KEPULAUAN",74.62,"76.34",92.97,34.27
+"Sulawesi Selatan","7310","Kabupaten BARRU",75.41,"76.74",98.06,37.81
+"Sulawesi Selatan","7311","Kabupaten BONE",71.63,"68.02",97.58,28.17
+"Sulawesi Selatan","7312","Kabupaten SOPPENG",73.69,"73.89",93.08,39.76
+"Sulawesi Selatan","7313","Kabupaten WAJO",74.72,"77.34",95.66,27.21
+"Sulawesi Selatan","7314","Kabupaten SIDENRENG RAPPANG",75.49,"76.53",98.4,34.86
+"Sulawesi Selatan","7315","Kabupaten PINRANG",75.87,"86.35",93.78,33.79
+"Sulawesi Selatan","7316","Kabupaten ENREKANG",76.5,"82.22",97.1,47.04
+"Sulawesi Selatan","7317","Kabupaten LUWU",74.66,"72.31",94.26,41.55
+"Sulawesi Selatan","7318","Kabupaten TANA TORAJA",72.77,"65.99",93.67,47.74
+"Sulawesi Selatan","7322","Kabupaten LUWU UTARA",74.81,"74.20",95.66,36.27
+"Sulawesi Selatan","7325","Kabupaten LUWU TIMUR",77.28,"81.79",90.28,41.99
+"Sulawesi Selatan","7326","Kabupaten TORAJA UTARA",73.24,"65.38",95.19,44.56
+"Sulawesi Selatan","7371","Kota MAKASSAR",85.66,"87.44",92.2,65.01
+"Sulawesi Selatan","7372","Kota PAREPARE",81.5,"88.79",98.7,59.63
+"Sulawesi Selatan","7373","Kota PALOPO",81.74,"87.65",96.52,60.88
+"Sulawesi Tenggara","7401","Kabupaten BUTON",70.22,"62.45",85.01,33.7
+"Sulawesi Tenggara","7402","Kabupaten MUNA",72.23,"65.69",87.95,38.15
+"Sulawesi Tenggara","7403","Kabupaten KONAWE",75.09,"77.81",90.9,43.61
+"Sulawesi Tenggara","7404","Kabupaten KOLAKA",76.92,"84.16",96.47,42.27
+"Sulawesi Tenggara","7405","Kabupaten KONAWE SELATAN",72.32,"72.80",93.99,32.77
+"Sulawesi Tenggara","7406","Kabupaten BOMBANA",69.54,"76.70",88.7,33.5
+"Sulawesi Tenggara","7407","Kabupaten WAKATOBI",72.59,"66.88",87.76,31.99
+"Sulawesi Tenggara","7408","Kabupaten KOLAKA UTARA",72.37,"89.01",93.77,40.81
+"Sulawesi Tenggara","7409","Kabupaten BUTON UTARA",71.29,"69.60",79.12,41.32
+"Sulawesi Tenggara","7410","Kabupaten KONAWE UTARA",73.42,"82.00",88.36,43
+"Sulawesi Tenggara","7411","Kabupaten KOLAKA TIMUR",71.19,"79.04",97.55,33.89
+"Sulawesi Tenggara","7412","Kabupaten KONAWE KEPULAUAN",69.39,"67.60",76.23,42.53
+"Sulawesi Tenggara","7413","Kabupaten MUNA BARAT",69.18,"62.13",80.16,32.08
+"Sulawesi Tenggara","7414","Kabupaten BUTON TENGAH",68.39,"63.81",90.62,29.2
+"Sulawesi Tenggara","7415","Kabupaten BUTON SELATAN",68.54,"56.96",90.46,28.54
+"Sulawesi Tenggara","7471","Kota KENDARI",86.36,"88.85",95.81,64.54
+"Sulawesi Tenggara","7472","Kota BAUBAU",80.29,"82.28",97.32,58.86
+"Gorontalo","7501","Kabupaten BOALEMO",69.89,"68.63",75.63,26.04
+"Gorontalo","7502","Kabupaten GORONTALO",71.54,"65.14",82.84,30.36
+"Gorontalo","7503","Kabupaten POHUWATO",70.59,"77.21",83.26,26.5
+"Gorontalo","7504","Kabupaten BONE BOLANGO",73.3,"76.58",85.45,36.06
+"Gorontalo","7505","Kabupaten GORONTALO UTARA",69.62,"73.17",84.8,26.61
+"Gorontalo","7571","Kota GORONTALO",79.97,"83.28",94.8,56.17
+"Sulawesi Barat","7601","Kabupaten MAJENE",74.15,"70.76",87.63,43.77
+"Sulawesi Barat","7602","Kabupaten POLEWALI MANDAR",70.71,"70.67",90.48,30.83
+"Sulawesi Barat","7603","Kabupaten MAMASA",69.56,"66.49",74.49,42.04
+"Sulawesi Barat","7604","Kabupaten MAMUJU",72.77,"78.22",85.29,40.4
+"Sulawesi Barat","7605","Kabupaten PASANGKAYU",71.62,"79.64",84.15,28.84
+"Sulawesi Barat","7606","Kabupaten MAMUJU TENGAH",69.17,"76.53",88.6,29.47
+"Maluku","8101","Kabupaten MALUKU TENGGARA BARAT",68.47,"46.50",90.64,43.16
+"Maluku","8102","Kabupaten MALUKU TENGGARA",71.16,"53.34",81.94,48.37
+"Maluku","8103","Kabupaten MALUKU TENGAH",75.87,"75.63",82.53,56.41
+"Maluku","8104","Kabupaten BURU",73.24,"72.14",80.1,45.32
+"Maluku","8105","Kabupaten KEPULAUAN ARU",69.73,"55.91",44.58,39.52
+"Maluku","8106","Kabupaten SERAM BAGIAN BARAT",72.91,"51.63",74.43,40.02
+"Maluku","8107","Kabupaten SERAM BAGIAN TIMUR",71.1,"53.15",78.76,42.05
+"Maluku","8108","Kabupaten MALUKU BARAT DAYA",68.66,"54.12",89.76,41.33
+"Maluku","8109","Kabupaten BURU SELATAN",69.36,"63.26",68.88,41.83
+"Maluku","8171","Kota AMBON",83.97,"88.01",93.57,76.12
+"Maluku","8172","Kota TUAL",72.88,"70.29",83.77,53.73
+"Maluku Utara","8201","Kabupaten HALMAHERA BARAT",69.75,"52.08",81.56,33.99
+"Maluku Utara","8202","Kabupaten HALMAHERA TENGAH",71.57,"64.50",89.79,38.57
+"Maluku Utara","8203","Kabupaten KEPULAUAN SULA",68.89,"53.02",86.36,39.58
+"Maluku Utara","8204","Kabupaten HALMAHERA SELATAN",69.05,"59.22",79.39,29.98
+"Maluku Utara","8205","Kabupaten HALMAHERA UTARA",71.25,"56.03",73.37,38.04
+"Maluku Utara","8206","Kabupaten HALMAHERA TIMUR",71.11,"66.82",83.03,37.29
+"Maluku Utara","8207","Kabupaten PULAU MOROTAI",67.86,"54.88",65.81,33.42
+"Maluku Utara","8208","Kabupaten PULAU TALIABU",65.61,"59.50",73.08,28.74
+"Maluku Utara","8271","Kota TERNATE",83.01,"87.83",98.9,70.49
+"Maluku Utara","8272","Kota TIDORE KEPULAUAN",74.63,"74.99",93.44,48.7
+"Papua Barat","9101","Kabupaten FAKFAK",72,"72.04",73.59,53.05
+"Papua Barat","9102","Kabupaten KAIMANA",69.7,"67.61",80.29,49.26
+"Papua Barat","9103","Kabupaten TELUK WONDAMA",65.26,"70.30",59.66,48.39
+"Papua Barat","9104","Kabupaten TELUK BINTUNI",70.32,"77.15",75.94,52.62
+"Papua Barat","9105","Kabupaten MANOKWARI",75.96,"74.21",88.08,52.36
+"Papua Barat","9111","Kabupaten MANOKWARI SELATAN",63.24,"62.86",91.55,52.34
+"Papua Barat","9112","Kabupaten PEGUNUNGAN ARFAK",59.53,"44.42",56.9,36.87
+"Papua Barat Daya","9201","Kabupaten RAJA AMPAT",67.36,"61.48",68.62,43.83
+"Papua Barat Daya","9202","Kabupaten SORONG",70.6,"73.75",88.6,47.15
+"Papua Barat Daya","9203","Kabupaten SORONG SELATAN",65.45,"42.57",48.7,40.48
+"Papua Barat Daya","9204","Kabupaten MAYBRAT",62.68,"61.91",71.56,55.97
+"Papua Barat Daya","9205","Kabupaten TAMBRAUW",59.28,"58.46",87.15,44.84
+"Papua Barat Daya","9271","Kota SORONG",81.03,"77.45",83.99,69.51
+"Papua","9403","Kabupaten JAYAPURA",76.14,"67.30",73.79,62.52
+"Papua","9408","Kabupaten KEPULAUAN YAPEN",70.93,"49.04",67.96,51.29
+"Papua","9409","Kabupaten BIAK NUMFOR",75.48,"57.13",88.96,56.29
+"Papua","9419","Kabupaten SARMI",68.78,"61.36",88.52,47.63
+"Papua","9420","Kabupaten KEEROM",70.43,"60.74",85.41,42.02
+"Papua","9426","Kabupaten WAROPEN",68.91,"59.48",81.51,46.44
+"Papua","9427","Kabupaten SUPIORI",67.3,"44.45",81.84,49.77
+"Papua","9428","Kabupaten MAMBERAMO RAYA",60.48,"31.69",28.79,23.34
+"Papua","9471","Kota JAYAPURA",82.26,"78.25",75.29,72.17
+"Papua Selatan","9501","Kabupaten MERAUKE",75.11,"64.54",88.37,48.14
+"Papua Selatan","9502","Kabupaten BOVEN DIGOEL",68.62,"61.68",70.28,48.86
+"Papua Selatan","9503","Kabupaten MAPPI",62.6,"30.19",38.69,30.83
+"Papua Selatan","9504","Kabupaten ASMAT",58.55,"27.54",29.65,29.43
+"Papua Tengah","9601","Kabupaten MIMIKA",77.27,"78.65",82.56,63.45
+"Papua Tengah","9602","Kabupaten DOGIYAI",57.96,"2.60",10.94,15.35
+"Papua Tengah","9603","Kabupaten DEIYAI",52.81,"5.19",20.65,10.68
+"Papua Tengah","9604","Kabupaten NABIRE",72.89,"70.64",92.65,58.73
+"Papua Tengah","9605","Kabupaten PANIAI",60.04,"18.95",25.03,12.34
+"Papua Tengah","9606","Kabupaten INTAN JAYA",51.56,"18.09",23.59,12.57
+"Papua Tengah","9608","Kabupaten PUNCAK JAYA",53.18,"11.48",14.39,19.62
+"Papua Pegunungan","9701","Kabupaten NDUGA",40.35,"14.07",4,3.18
+"Papua Pegunungan","9702","Kabupaten JAYAWIJAYA",66.02,"42.81",43.7,28.69
+"Papua Pegunungan","9703","Kabupaten LANNY JAYA",52.47,"7.13",5.58,17.85
+"Papua Pegunungan","9704","Kabupaten TOLIKARA",52.71,"2.35",1.13,11.56
+"Papua Pegunungan","9705","Kabupaten MAMBERAMO TENGAH",53.36,"19.84",6.06,17.86
+"Papua Pegunungan","9706","Kabupaten YALIMO",52.63,"10.26",24.1,30.74
+"Papua Pegunungan","9707","Kabupaten YAHUKIMO",52.48,"8.43",14.36,8.14
+"Papua Pegunungan","9708","Kabupaten PEGUNUNGAN BINTANG",50.56,"13.52",17.88,20.68

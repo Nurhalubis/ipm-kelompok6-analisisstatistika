@@ -1,0 +1,1223 @@
+---
+title: "Connected, Educated, Developed?"
+subtitle: "Pemodelan hubungan akses internet, sanitasi layak, dan pendidikan dengan IPM di 513 kabupaten/kota di Indonesia"
+author:
+  - Nurhalimah
+  - Arthur
+  - Rifdah
+  - Meliawati
+date: 2026-10-24
+date-format: "D MMMM YYYY"
+lang: id
+abstract: |
+  Laporan Proyek Akhir STA2511, Kelompok 6, IPB University.
+  Kami memodelkan Indeks Pembangunan Manusia (IPM) 2025 terhadap akses internet,
+  sanitasi layak, dan pendidikan SMA ke atas dengan regresi linear berganda, menguji efek interaksinya, dan memeriksa kesenjangan antarwilayah.
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 2
+    toc-title: "Daftar isi"
+    number-sections: true
+    code-fold: true
+    code-summary: "Tampilkan kode R"
+    code-tools: true
+    df-print: kable
+    fig-width: 9
+    fig-height: 4.8
+    fig-dpi: 150
+    embed-resources: true
+    smooth-scroll: true
+    html-math-method: mathml
+    css: gaya.css
+execute:
+  warning: false
+  message: false
+  cache: false
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(car); library(sandwich); library(lmtest); library(MASS)
+library(dplyr); library(ggplot2); library(lme4)
+library(sf); library(spdep); library(spatialreg)
+library(knitr)
+sf_use_s2(FALSE)
+
+# Lokasi proyek: folder tempat file .qmd berada (akar repositori).
+root <- "."
+options(knitr.kable.NA = "")
+
+# Format angka gaya Indonesia
+f  <- function(x, k = 2) formatC(x, format = "f", digits = k, decimal.mark = ",", big.mark = ".")
+fp <- function(p) ifelse(p < 0.001, "< 0,001", f(p, 3))
+tabel <- function(x, ...) kable(x, format.args = list(decimal.mark = ",", big.mark = "."), ...)
+
+teal <- "#1797A6"; hijau <- "#5CC77A"; oranye <- "#B4441A"; tua <- "#1D3B45"
+theme_set(theme_minimal(base_size = 12) +
+  theme(plot.title = element_text(face = "bold", colour = tua),
+        panel.grid.minor = element_blank()))
+```
+
+# Pendahuluan
+
+**Latar Belakang**
+
+Indeks Pembangunan Manusia (IPM) merupakan indikator yang digunakan
+untuk menggambarkan kualitas hidup masyarakat melalui tiga dimensi
+utama, yaitu umur panjang dan hidup sehat, pengetahuan, serta standar
+hidup layak. IPM banyak digunakan sebagai ukuran keberhasilan
+pembangunan karena mampu merangkum berbagai aspek kesejahteraan manusia
+ke dalam satu indikator komposit.
+
+Dalam beberapa tahun terakhir, transformasi digital menjadi salah satu
+agenda utama pembangunan di Indonesia. Akses internet semakin luas dan
+sering dianggap sebagai sarana untuk meningkatkan akses informasi,
+pendidikan, layanan publik, serta peluang ekonomi. Namun, manfaat
+konektivitas digital belum tentu dirasakan secara merata. Daerah dengan
+tingkat pendidikan yang rendah atau infrastruktur dasar yang belum
+memadai mungkin tidak memperoleh manfaat yang sama dibandingkan daerah
+yang lebih maju.
+
+Selain itu, Indonesia masih menghadapi kesenjangan pembangunan yang
+cukup besar antarwilayah. Beberapa daerah memiliki IPM yang sangat
+tinggi, sementara daerah lain masih tertinggal meskipun telah mengalami
+peningkatan akses internet dan pembangunan infrastruktur dasar. Kondisi
+ini menimbulkan pertanyaan mengenai faktor-faktor yang paling terkait
+dengan pembangunan manusia serta sejauh mana kesenjangan wilayah masih
+bertahan setelah berbagai indikator pembangunan diperhitungkan.
+
+Berdasarkan latar belakang tersebut, penelitian ini menganalisis
+hubungan antara akses internet, sanitasi layak, dan pendidikan SMA ke
+atas dengan IPM pada 513 kabupaten/kota di Indonesia. Selain mengkaji
+pengaruh masing-masing indikator, penelitian ini juga mengevaluasi
+apakah hubungan internet dengan IPM bergantung pada tingkat pendidikan
+atau sanitasi, serta mengidentifikasi wilayah yang memiliki capaian IPM
+lebih tinggi atau lebih rendah dari yang diperkirakan model.
+
+**Pertanyaan Penelitian**
+
+Penelitian ini dirancang untuk menjawab tiga pertanyaan utama:
+
+1.  Seberapa kuat hubungan akses internet, sanitasi layak, dan
+    pendidikan SMA ke atas dengan IPM kabupaten/kota di Indonesia?
+
+2.  Apakah hubungan antara akses internet dan IPM berbeda menurut
+    tingkat pendidikan atau sanitasi layak suatu daerah (efek
+    interaksi)?
+
+3.  Setelah akses internet, sanitasi layak, pendidikan, dan
+    karakteristik wilayah diperhitungkan, wilayah mana yang masih
+    memiliki IPM lebih tinggi atau lebih rendah daripada yang
+    diperkirakan model?
+
+**Hipotesis Awal**
+
+Sebelum analisis dilakukan, penelitian ini berangkat dari tiga hipotesis
+utama:
+
+- Kabupaten/kota dengan akses internet yang lebih tinggi cenderung
+  memiliki IPM yang lebih tinggi.
+
+- Kabupaten/kota dengan tingkat pendidikan yang lebih tinggi cenderung
+  memiliki IPM yang lebih tinggi.
+
+- Hubungan akses internet dengan IPM diduga lebih kuat pada daerah yang
+  memiliki tingkat pendidikan dan infrastruktur dasar yang lebih baik.
+
+# Data
+
+Penelitian ini menggunakan data lintas wilayah (cross-sectional) yang
+mencakup **513 kabupaten/kota** di Indonesia, terdiri atas **415
+kabupaten** dan **98 kota** yang tersebar di **38 provinsi**. Kabupaten
+Puncak (Papua Tengah) tidak tersedia dalam sumber data sehingga tidak
+termasuk dalam analisis. Seluruh variabel yang digunakan lengkap dan
+tidak mengandung nilai hilang (missing values).
+
+Data bersumber dari **Badan Pusat Statistik (BPS)**. Variabel respon
+berupa **Indeks Pembangunan Manusia (IPM)** tahun 2025 yang diperoleh
+dari *Publikasi Indeks Pembangunan Manusia 2025*. Variabel penjelas
+berasal dari *Survei Sosial Ekonomi Nasional (Susenas) Maret 2025*,
+yaitu:
+
+- **X1** : Persentase penduduk usia 5 tahun ke atas yang mengakses
+  internet.
+
+- **X2** : Persentase rumah tangga dengan akses sanitasi layak.
+
+- **X3** : Persentase penduduk usia 25 tahun ke atas dengan pendidikan
+  minimal SMA atau sederajat.
+
+```{r}
+#| label: data
+# Jalankan dari folder proyek; gunakan path relatif (data/ dan peta/)
+
+f_csv <- "20261023_Data_Kelompok_6_New_513kako.csv"
+p_csv <- c(file.path(root, "data", f_csv), file.path(root, f_csv))
+p_csv <- p_csv[file.exists(p_csv)][1]
+if (is.na(p_csv)) stop("File ", f_csv, " tidak ditemukan. Letakkan CSV di folder proyek atau di subfolder data/.")
+d <- read.csv(p_csv, check.names = FALSE)
+names(d) <- c("prov", "kode", "kab", "Y", "X1", "X2", "X3")
+d$X1    <- as.numeric(d$X1)
+d$papua <- as.integer(grepl("^Papua", d$prov))
+d$kota  <- as.integer(grepl("^Kota", d$kab))
+pk <- d$kode %/% 100
+d$pulau <- cut(pk, breaks = c(0, 21, 36, 53, 65, 76, 82, 99),
+               labels = c("Sumatera", "Jawa", "Bali-Nusra", "Kalimantan",
+                          "Sulawesi", "Maluku", "Papua"))
+d$pulau <- relevel(d$pulau, ref = "Jawa")
+for (v in c("X1", "X2", "X3")) d[[paste0("c", v)]] <- d[[v]] - mean(d[[v]])
+```
+
+```{r}
+#| label: tbl-deskriptif
+#| tbl-cap: "Peubah dan statistik deskriptif (n = 513)"
+lbl <- c(Y = "IPM", X1 = "% penduduk 5+ mengakses internet",
+         X2 = "% rumah tangga dengan sanitasi layak", X3 = "% penduduk 25+ berpendidikan SMA+")
+des <- do.call(rbind, lapply(names(lbl), function(v) {
+  x <- d[[v]]
+  data.frame(Kode = v, Peubah = lbl[[v]], `Rata-rata` = mean(x), SD = sd(x),
+             Minimum = sprintf("%s (%s)", f(min(x)), sub("^Kab\\. |^Kabupaten ", "", d$kab[which.min(x)])),
+             Median = median(x), Maksimum = max(x), check.names = FALSE)
+}))
+tabel(des, digits = 2, row.names = FALSE, align = "llrrlrr")
+```
+
+**Interpretasi:**
+
+- Rata-rata IPM kabupaten/kota di Indonesia mencapai **74,04 poin**,
+  dengan nilai berkisar antara **40,35 hingga 89,55**. Rentang yang
+  lebar ini menunjukkan masih adanya **kesenjangan pembangunan manusia**
+  yang cukup besar antarwilayah.
+
+- Akses internet (**X1**) memiliki rata-rata **73,33%**, namun
+  variasinya sangat tinggi, dari **2,35% hingga lebih dari 95%**. Hal
+  ini mengindikasikan bahwa transformasi digital belum merata di seluruh
+  daerah.
+
+- Sanitasi layak (**X2**) rata-rata mencapai **82,93%** dengan beberapa
+  daerah telah mencapai **100%**, tetapi masih terdapat wilayah dengan
+  cakupan sanitasi yang rendah sehingga kesenjangan infrastruktur dasar
+  tetap terlihat.
+
+- Pada aspek pendidikan (**X3**), rata-rata hanya **40,80%** penduduk
+  usia 25 tahun ke atas yang menamatkan minimal SMA. Rentang nilai yang
+  lebar (**3,18%–83,40%**) menunjukkan ketimpangan pendidikan yang masih
+  cukup besar antarwilayah.
+
+- Sebaran data menunjukkan bahwa akses internet dan sanitasi umumnya
+  terkonsentrasi pada nilai tinggi, sementara sebagian kecil wilayah
+  masih tertinggal jauh. Nilai minimum hampir seluruh indikator
+  ditemukan di kawasan **Papua Pegunungan** dan **Papua Tengah**, yang
+  mengindikasikan bahwa faktor kewilayahan turut berperan dalam
+  kesenjangan pembangunan.
+
+- Besarnya variasi pada IPM, internet, sanitasi, dan pendidikan
+  memberikan dasar yang kuat untuk analisis regresi karena memungkinkan
+  identifikasi hubungan statistik antarvariabel serta pengujian pengaruh
+  wilayah dan kemungkinan efek interaksi.
+
+# Eksplorasi
+
+Tahap eksplorasi bertujuan untuk memahami pola hubungan antara IPM dan
+ketiga indikator pembangunan yang digunakan, yaitu akses internet (X1),
+sanitasi layak (X2), dan pendidikan SMA ke atas (X3). Selain itu,
+eksplorasi juga dilakukan untuk mengidentifikasi kemungkinan adanya
+perbedaan pola antarwilayah sebelum dilakukan pemodelan regresi.
+
+```{r}
+#| label: fig-pencar
+#| fig-cap: "IPM terhadap ketiga indikator. Titik oranye: 41 kab/kota di enam provinsi Papua."
+#| fig-height: 4
+pj <- rbind(
+  data.frame(d[, c("Y", "papua")], x = d$X1, panel = "Akses internet (X1, %)"),
+  data.frame(d[, c("Y", "papua")], x = d$X2, panel = "Sanitasi layak (X2, %)"),
+  data.frame(d[, c("Y", "papua")], x = d$X3, panel = "Pendidikan SMA+ (X3, %)"))
+r <- round(cor(d[, c("Y", "X1", "X2", "X3")])[1, -1], 2)
+pj$panel <- factor(pj$panel, levels = unique(pj$panel),
+                   labels = paste0(unique(pj$panel), "\nr = ", f(r)))
+ggplot(pj, aes(x, Y, colour = factor(papua))) +
+  geom_point(alpha = 0.6, size = 1.4) +
+  facet_wrap(~ panel, scales = "free_x") +
+  scale_colour_manual(values = c("0" = "grey55", "1" = oranye),
+                      labels = c("Bukan Papua", "Papua"), name = NULL) +
+  labs(x = NULL, y = "IPM") + theme(legend.position = "bottom")
+```
+
+```{r}
+#| label: tbl-korelasi
+#| tbl-cap: "Matriks korelasi Pearson"
+tabel(cor(d[, c("Y", "X1", "X2", "X3")]), digits = 3)
+```
+
+**Hubungan IPM dengan Ketiga Indikator**
+
+- Hasil eksplorasi menunjukkan bahwa **akses internet (X1), sanitasi
+  layak (X2), dan pendidikan SMA ke atas (X3) semuanya memiliki hubungan
+  positif dengan IPM**. Semakin tinggi nilai ketiga indikator tersebut,
+  semakin tinggi pula IPM suatu kabupaten/kota.
+
+- Hubungan terkuat ditemukan pada **akses internet (r = 0,844)**,
+  diikuti **pendidikan (r = 0,752)** dan **sanitasi (r = 0,668)**. Hal
+  ini menunjukkan bahwa daerah dengan konektivitas digital, tingkat
+  pendidikan, dan infrastruktur dasar yang lebih baik cenderung memiliki
+  kualitas pembangunan manusia yang lebih tinggi.
+
+**Pola Wilayah Papua**
+
+Kabupaten/kota di wilayah Papua membentuk kelompok yang relatif terpisah
+dari daerah lain. Pada tingkat internet, sanitasi, dan pendidikan yang
+serupa, banyak wilayah Papua masih memiliki IPM yang lebih rendah.
+Temuan ini mengindikasikan adanya faktor kewilayahan lain yang turut
+memengaruhi pembangunan manusia.
+
+**Matriks Korelasi**
+
+Ketiga variabel penjelas layak digunakan sebagai prediktor karena
+memiliki korelasi positif yang cukup kuat dengan IPM. Korelasi
+antarvariabel penjelas juga positif, seperti internet dengan sanitasi
+(**r = 0,695**) dan internet dengan pendidikan (**r = 0,544**). Namun
+seluruh nilai korelasi masih di bawah **0,8**, sehingga belum
+menunjukkan indikasi kuat adanya multikolinearitas tinggi.
+
+**Kesimpulan Eksplorasi**
+
+Eksplorasi data menunjukkan bahwa **internet, sanitasi, dan pendidikan
+berhubungan positif dengan IPM**, serta terdapat indikasi **kesenjangan
+wilayah**, khususnya pada kabupaten/kota di Papua. Temuan ini menjadi
+dasar untuk melanjutkan analisis regresi dan menguji pengaruh faktor
+wilayah maupun efek interaksi antarvariabel.
+
+# Metode
+
+Penelitian ini menggunakan **regresi linear berganda (Ordinary Least
+Squares/OLS)** untuk menganalisis hubungan antara Indeks Pembangunan
+Manusia (IPM) dengan akses internet, sanitasi layak, dan pendidikan SMA
+ke atas pada tingkat kabupaten/kota. Analisis dilakukan secara bertahap
+agar hubungan antarvariabel, potensi efek interaksi, serta pengaruh
+karakteristik wilayah dapat dievaluasi secara sistematis.
+
+Analisis memakai regresi linear berganda (OLS) dalam tujuh langkah:
+
+1.  **Model aditif**
+    $Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_3 + \varepsilon$,
+    dengan VIF untuk memeriksa multikolinearitas.
+
+    --\> Model ini digunakan untuk mengukur pengaruh masing-masing
+    indikator terhadap IPM setelah mengendalikan variabel lainnya.
+    Multikolinearitas diperiksa menggunakan **Variance Inflation Factor
+    (VIF)**.
+
+2.  **Pemusatan** $X^* = X - \bar X$ sebelum membuat suku interaksi,
+    agar VIF suku interaksi tidak membengkak.
+
+    --\> Seluruh variabel penjelas dipusatkan terhadap rata-ratanya.
+    Tujuannya adalah mengurangi multikolinearitas pada model interaksi
+    dan memudahkan interpretasi koefisien.
+
+3.  **Uji interaksi** $X_1X_2$, $X_1X_3$, $X_2X_3$ dengan uji F parsial.
+
+    --\> Selanjutnya dibangun model yang memuat interaksi antara
+    internet, sanitasi, dan pendidikan untuk menguji apakah pengaruh
+    suatu indikator bergantung pada indikator lainnya. Signifikansi
+    interaksi dievaluasi melalui uji F dan perbandingan kualitas model.
+
+4.  **Pengendalian Faktor wilayah**: dummy tujuh wilayah pulau (Jawa
+    sebagai rujukan) dan dummy kota (1 = kota, 0 = kabupaten); model
+    dipilih dengan AIC, BIC, dan RMSE validasi silang 10-fold diulang 5
+    kali.
+
+    --\> Untuk mengakomodasi perbedaan karakteristik antarwilayah,
+    dimasukkan variabel kategori kawasan (Sumatera, Jawa, Bali-Nusa
+    Tenggara, Kalimantan, Sulawesi, Maluku, dan Papua) dengan **Jawa
+    sebagai referensi**. Selain itu digunakan variabel dummy
+    **kota/kabupaten** untuk mengontrol perbedaan tipe daerah.
+
+5.  **Pemilihan Model Terbaik**: Model dibandingkan menggunakan
+    **Adjusted R², AIC, dan BIC**. Kemampuan prediksi dievaluasi melalui
+    **validasi silang 10-fold yang diulang lima kali** dengan ukuran
+    kinerja **RMSE**.
+
+6.  **Diagnostik**
+
+    Asumsi regresi diperiksa melalui:
+
+    - Normalitas sisaan (Shapiro-Wilk dan Q-Q plot),
+
+    - Homoskedastisitas (Breusch-Pagan),
+
+    - Linearitas (Ramsey RESET),
+
+    - Multikolinearitas (VIF), dan
+
+    - Dependensi spasial (Moran's I).
+
+    Jika ditemukan pelanggaran asumsi, digunakan **robust standard
+    errors** dan **clustered standard errors tingkat provinsi**.
+
+7.  **Model akhir:**
+    $$Y = \beta_0 + \beta_1X_1^* + \beta_2X_2^* + \beta_3X_3^* + \sum_j \gamma_j\,\text{Wilayah}_j + \delta\,\text{Kota} + \varepsilon$$
+
+    Model ini memungkinkan evaluasi pengaruh internet, sanitasi, dan
+    pendidikan terhadap IPM setelah memperhitungkan perbedaan wilayah
+    serta status kabupaten/kota.
+
+# Model aditif
+
+Model aditif digunakan sebagai titik awal untuk mengevaluasi hubungan
+antara akses internet, sanitasi layak, pendidikan SMA+, dan IPM.
+
+IPM=β0​+β1​X1​+β2​X2​+β3​X3​+ε
+
+```{r}
+#| label: aditif
+m0 <- lm(Y ~ X1 + X2 + X3, data = d)
+s0 <- summary(m0)
+beta0 <- coef(lm(scale(Y) ~ scale(X1) + scale(X2) + scale(X3), data = d))[-1]
+v0 <- vif(m0)
+```
+
+```{r}
+#| label: tbl-aditif
+#| tbl-cap: "Koefisien model aditif (SE OLS biasa)"
+ct <- coef(s0)
+tabel(data.frame(Suku = c("Intersep", "X1 Internet", "X2 Sanitasi", "X3 SMA+"),
+                 b = ct[, 1], SE = ct[, 2], t = ct[, 3], p = fp(ct[, 4]),
+                 `β baku` = c(NA, beta0), VIF = c(NA, v0), check.names = FALSE),
+      digits = 3, row.names = FALSE)
+```
+
+**Interpretasi:**
+
+- @tbl-aditif menunjukkan bahwa ketiga indikator memiliki koefisien positif
+  dan signifikan (p \< 0,001). Nilai Adjusted R² sebesar **0,842**
+  menunjukkan bahwa model mampu menjelaskan sekitar **84,2% variasi
+  IPM** antar kabupaten/kota.
+
+- Secara substantif, peningkatan 10 poin persentase akses internet
+  berkaitan dengan kenaikan IPM sekitar **2,18 poin**, sedangkan
+  peningkatan 10 poin persentase pendidikan SMA+ berkaitan dengan
+  kenaikan IPM sekitar **1,71 poin**. Sanitasi juga berhubungan positif
+  dengan IPM, meskipun kekuatannya relatif lebih kecil.
+
+- Berdasarkan koefisien terstandarisasi (β\betaβ baku), akses internet
+  memiliki hubungan parsial paling kuat dengan IPM
+  (β = 0,524), diikuti pendidikan
+  (β = 0,411) dan sanitasi
+  (β = 0,138).
+
+- Seluruh nilai VIF berada di bawah 2,5 sehingga tidak terdapat indikasi
+  multikolinearitas yang serius. Dengan demikian, ketiga variabel dapat
+  digunakan bersama dalam model tanpa menimbulkan masalah korelasi antar
+  prediktor yang berlebihan.
+
+**Temuan Awal:**
+
+Model aditif menunjukkan bahwa akses internet, sanitasi layak, dan
+pendidikan berasosiasi positif dengan IPM. Namun, hasil ini belum
+mempertimbangkan kemungkinan bahwa hubungan tersebut berbeda menurut
+karakteristik wilayah atau tingkat pendidikan daerah. Oleh karena itu,
+tahap berikutnya menguji keberadaan **efek interaksi** antar indikator
+pembangunan.
+
+# Uji interaksi
+
+Model interaksi digunakan untuk menguji apakah hubungan internet dengan
+IPM bergantung pada tingkat pendidikan atau sanitasi suatu daerah.
+Seluruh prediktor dipusatkan terlebih dahulu untuk mengurangi
+multikolinearitas.
+
+```{r}
+#| label: interaksi
+m0c <- lm(Y ~ cX1 + cX2 + cX3, data = d)
+m1  <- lm(Y ~ cX1 + cX2 + cX3 + cX1:cX2 + cX1:cX3 + cX2:cX3, data = d)
+uF  <- anova(m0c, m1)
+suku <- c("cX1:cX2", "cX1:cX3", "cX2:cX3")
+nama_suku <- c("Internet × sanitasi", "Internet × pendidikan", "Sanitasi × pendidikan")
+p_hc3 <- function(m) coeftest(m, vcov = vcovHC(m, type = "HC3"))[suku, 4]
+p_cl  <- function(m) coeftest(m, vcov = vcovCL(m, cluster = ~prov, type = "HC1"))[suku, 4]
+```
+
+```{r}
+#| label: tbl-interaksi
+#| tbl-cap: "Suku interaksi pada model tanpa kendali wilayah (prediktor dipusatkan)"
+tabel(data.frame(Suku = nama_suku, b = coef(m1)[suku], `p (HC3)` = fp(p_hc3(m1)),
+                 check.names = FALSE), digits = 4, row.names = FALSE)
+```
+
+Interpretasi:
+
+@tbl-interaksi menunjukkan bahwa interaksi **Internet × Pendidikan**
+(b = 0,0039; p \< 0,001) dan **Internet × Sanitasi**
+(b = −0,0015; p = 0,013) signifikan, sedangkan
+**Sanitasi × Pendidikan** tidak signifikan (p = 0,993).
+
+Selain itu, uji F parsial menunjukkan bahwa model interaksi memberikan
+peningkatan kecocokan dibanding model aditif (F = `r f(uF$F[2], 2)`; p `r fp(uF$"Pr(>F)"[2])`).
+Temuan awal ini mengindikasikan bahwa manfaat akses internet tampak
+lebih besar pada daerah dengan tingkat pendidikan yang lebih tinggi.
+
+Interaksi Internet × Sanitasi bertanda negatif, berlawanan dengan hipotesis awal bahwa hubungan internet lebih kuat di daerah dengan infrastruktur dasar yang lebih baik: tambahan manfaat internet justru sedikit lebih kecil di daerah dengan sanitasi tinggi. Namun, hasil tersebut masih diperoleh dari model tanpa kendali wilayah
+dan status kabupaten/kota. Oleh karena itu, interpretasi interaksi perlu
+dievaluasi kembali pada model yang memasukkan faktor kewilayahan.
+
+**Temuan Awal**
+
+Terdapat indikasi bahwa hubungan internet dan IPM berbeda menurut
+tingkat pendidikan daerah. Akan tetapi, belum dapat dipastikan apakah
+pola tersebut mencerminkan interaksi yang sesungguhnya atau hanya akibat
+perbedaan karakteristik wilayah.
+
+# Model akhir: interaksi hilang setelah wilayah dan kota dikendalikan
+
+```{r}
+#| label: akhir
+m1w <- update(m1, . ~ . + pulau + kota)
+```
+
+```{r}
+#| label: tbl-sebelum-sesudah
+#| tbl-cap: "p-value suku interaksi sebelum dan sesudah menambahkan dummy wilayah dan kota"
+ss <- data.frame(Suku = nama_suku,
+                 `Sebelum (HC3)` = fp(p_hc3(m1)), `Sesudah (HC3)` = fp(p_hc3(m1w)),
+                 `Sesudah (tergerombol provinsi)` = fp(p_cl(m1w)), check.names = FALSE)
+ss <- rbind(ss, data.frame(Suku = "R² terkoreksi",
+                           `Sebelum (HC3)` = f(summary(m1)$adj.r.squared, 3),
+                           `Sesudah (HC3)` = f(summary(m1w)$adj.r.squared, 3),
+                           `Sesudah (tergerombol provinsi)` = "", check.names = FALSE))
+tabel(ss, row.names = FALSE, align = "lrrr")
+```
+
+**Interpretasi:**
+
+- Pada model sebelumnya, interaksi **Internet × Pendidikan** tampak
+  signifikan dan memberikan kesan bahwa akses internet lebih berasosiasi
+  dengan IPM pada daerah yang memiliki tingkat pendidikan lebih tinggi.
+  Namun, model tersebut belum memperhitungkan perbedaan karakteristik
+  wilayah dan status kabupaten/kota.
+
+- Ketika variabel wilayah pulau dan tipe daerah (kabupaten/kota)
+  dimasukkan ke dalam model, seluruh suku interaksi menjadi tidak
+  signifikan (@tbl-sebelum-sesudah). Nilai-p interaksi Internet × Pendidikan
+  meningkat dari \< 0,001 menjadi 0,578 dan tetap tidak signifikan
+  setelah menggunakan galat baku tergerombol per provinsi (p = 0,436).
+  Pola serupa juga terjadi pada interaksi Internet × Sanitasi dan
+  Sanitasi × Pendidikan.
+
+- Meskipun interaksi menghilang, kualitas model justru meningkat. Nilai
+  Adjusted R² naik dari **0,849** menjadi **0,888**, yang
+  menunjukkan bahwa penambahan informasi wilayah dan status kota
+  menjelaskan variasi IPM jauh lebih baik dibandingkan penambahan suku
+  interaksi.
+
+- Temuan ini menunjukkan bahwa hubungan yang semula tampak sebagai
+  "sinergi" antara internet dan pendidikan kemungkinan besar merupakan
+  **efek komposisi wilayah**. Kabupaten/kota dengan akses internet dan
+  pendidikan yang sama-sama tinggi banyak terkonsentrasi di wilayah Jawa
+  dan berstatus kota, sedangkan wilayah dengan internet dan pendidikan
+  yang rendah lebih banyak ditemukan di Papua. Setelah perbedaan wilayah
+  tersebut diperhitungkan, bukti statistik untuk interaksi tidak lagi
+  ditemukan.
+
+- Dengan kata lain, data tidak mendukung bahwa manfaat internet berbeda
+  secara sistematis menurut tingkat pendidikan setelah karakteristik
+  wilayah dan tingkat urbanisasi dikendalikan. Faktor wilayah ternyata
+  lebih berperan dalam menjelaskan variasi IPM dibandingkan efek
+  interaksi antarindikator pembangunan.
+
+**Temuan Utama:**
+
+Interaksi internet × pendidikan yang tampak pada model awal tidak lagi
+didukung setelah perbedaan wilayah dan status kabupaten/kota
+diperhitungkan. Hal ini menunjukkan bahwa variasi IPM lebih banyak
+berkaitan dengan karakteristik kewilayahan dibandingkan dengan sinergi
+antarindikator pembangunan yang diamati.
+
+## Pemilihan model
+
+```{r}
+#| label: tbl-pemilihan
+#| tbl-cap: "Perbandingan model kandidat. RMSE CV: validasi silang 10-fold diulang 5 kali."
+kandidat <- list(
+  `A0 Aditif`              = Y ~ cX1 + cX2 + cX3,
+  `A1 + X1×X3`             = Y ~ cX1 + cX2 + cX3 + cX1:cX3,
+  `B1 + Papua + X1×X3`     = Y ~ cX1 + cX2 + cX3 + papua + cX1:cX3,
+  `B2 + Papua + kota`      = Y ~ cX1 + cX2 + cX3 + papua + kota,
+  `C1 + wilayah + kota`    = Y ~ cX1 + cX2 + cX3 + pulau + kota,
+  `C2 C1 + X1×X3`          = Y ~ cX1 + cX2 + cX3 + pulau + kota + cX1:cX3)
+cv_rmse <- function(fm, data, K = 10, R = 5) {
+  e <- c()
+  for (r in 1:R) {
+    set.seed(r); fold <- sample(rep(1:K, length.out = nrow(data)))
+    for (k in 1:K) {
+      m <- lm(fm, data = data[fold != k, ])
+      e <- c(e, (data$Y[fold == k] - predict(m, data[fold == k, ]))^2)
+    }
+  }
+  sqrt(mean(e))
+}
+hasil <- do.call(rbind, lapply(names(kandidat), function(n) {
+  m <- lm(kandidat[[n]], data = d)
+  data.frame(Model = n, `R² adj` = summary(m)$adj.r.squared, AIC = AIC(m), BIC = BIC(m),
+             `RMSE CV` = cv_rmse(kandidat[[n]], d), check.names = FALSE)
+}))
+tabel(hasil, digits = 3, row.names = FALSE)
+```
+
+**Interpretasi:**
+
+- @tbl-pemilihan membandingkan beberapa model kandidat berdasarkan Adjusted
+  R², AIC, BIC, dan RMSE validasi silang. Penambahan interaksi (A1)
+  hanya memberikan perbaikan kecil dibanding model aditif (A0).
+  Sebaliknya, penambahan variabel wilayah dan status kabupaten/kota
+  secara konsisten meningkatkan kinerja model.
+
+- Model **C1** (internet, sanitasi, pendidikan, wilayah, dan kota)
+  memiliki **Adjusted** R² tertinggi (0,889) serta **AIC, BIC, dan
+  RMSE validasi silang terendah**. Hal ini menunjukkan bahwa informasi
+  kewilayahan memberikan tambahan penjelasan yang lebih besar
+  dibandingkan suku interaksi.
+
+- Penambahan kembali interaksi Internet × Pendidikan pada model C2 tidak
+  meningkatkan performa model. Nilai Adjusted R² tidak berubah,
+  sedangkan AIC, BIC, dan RMSE sedikit memburuk. Oleh karena itu, model
+  **C1 dipilih sebagai model akhir**.
+
+**Temuan Utama:**
+
+Variasi IPM antar kabupaten/kota lebih banyak dijelaskan oleh perbedaan
+wilayah dan karakteristik daerah dibandingkan oleh interaksi antar
+indikator pembangunan.
+
+## Koefisien model akhir
+
+```{r}
+#| label: tbl-c1
+#| tbl-cap: "Model akhir C1 dengan SE tergerombol per provinsi"
+m_akhir <- lm(kandidat[["C1 + wilayah + kota"]], data = d)
+cc <- coeftest(m_akhir, vcov = vcovCL(m_akhir, cluster = ~prov, type = "HC1"))
+sdY <- sd(d$Y)
+bb <- c(cX1 = sd(d$X1), cX2 = sd(d$X2), cX3 = sd(d$X3))
+b_baku <- coef(m_akhir)[names(bb)] * bb / sdY
+nm <- c("(Intersep)", "Internet (X1*)", "Sanitasi (X2*)", "SMA+ (X3*)",
+        paste("Wilayah:", levels(d$pulau)[-1]), "Kota")
+tabel(data.frame(Suku = nm, b = cc[, 1], SE = cc[, 2], p = fp(cc[, 4]),
+                 `β baku` = c(NA, b_baku, rep(NA, 7)), check.names = FALSE),
+      digits = 3, row.names = FALSE)
+```
+
+**Interpretasi:**
+
+- @tbl-c1 menunjukkan hasil estimasi model akhir (C1) dengan galat baku
+  tergerombol per provinsi. Model ini mampu menjelaskan sekitar **`r f(100 * summary(m_akhir)$r.squared, 1)`% variasi IPM** (R² terkoreksi `r f(summary(m_akhir)$adj.r.squared, 3)`), lebih tinggi dibanding model aditif.
+
+- Ketiga indikator utama tetap berhubungan positif dan signifikan dengan
+  IPM setelah wilayah dan status kabupaten/kota diperhitungkan.
+  Berdasarkan koefisien terstandarisasi, **pendidikan SMA+ merupakan
+  prediktor terkuat** (β = 0,492), diikuti oleh
+  **akses internet** (β = 0,302) dan **sanitasi
+  layak** (β = 0,130).
+
+- Secara substantif, pada wilayah dan status kota yang sama, peningkatan
+  **10 poin persentase pendidikan SMA+** berkaitan dengan IPM sekitar
+  **2,05 poin lebih tinggi**, sedangkan peningkatan **10 poin persentase
+  akses internet** berkaitan dengan IPM sekitar **1,26 poin lebih
+  tinggi**.
+
+- Selain itu, seluruh wilayah di luar Jawa memiliki IPM yang lebih
+  rendah dibanding Jawa setelah seluruh indikator dikendalikan.
+  Kesenjangan terbesar ditemukan di Papua, dengan selisih sekitar **6,47
+  poin IPM**. Status kota juga masih signifikan, dengan IPM kota sekitar
+  **1,05 poin lebih tinggi** dibanding kabupaten.
+
+**Temuan Utama:**
+
+Pendidikan merupakan indikator yang paling kuat terkait dengan IPM.
+Bahkan setelah internet, sanitasi, dan karakteristik daerah
+diperhitungkan, kesenjangan wilayah tetap terlihat, terutama antara Jawa
+dan Papua.
+
+## Konsistensi per pulau
+
+```{r}
+#| label: fig-pulau
+#| fig-cap: "Kenaikan IPM per +10 poin persen, regresi terpisah tiap pulau (SK 95%, SE HC3)."
+#| fig-height: 4.6
+per_pulau <- do.call(rbind, lapply(levels(d$pulau), function(p) {
+  m <- lm(Y ~ X1 + X2 + X3, data = subset(d, pulau == p))
+  ct <- coeftest(m, vcov = vcovHC(m, type = "HC3"))
+  data.frame(Pulau = sprintf("%s (n = %d)", p, nobs(m)),
+             Indikator = c("Internet", "SMA+"),
+             est = 10 * ct[c("X1", "X3"), 1], se = 10 * ct[c("X1", "X3"), 2])
+}))
+per_pulau$Pulau <- factor(per_pulau$Pulau, levels = rev(unique(per_pulau$Pulau)))
+ggplot(per_pulau, aes(est, Pulau, colour = Indikator)) +
+  geom_vline(xintercept = 0, colour = "grey60") +
+  geom_pointrange(aes(xmin = est - 1.96 * se, xmax = est + 1.96 * se),
+                  position = position_dodge(width = 0.5)) +
+  scale_colour_manual(values = c(Internet = hijau, `SMA+` = teal), name = NULL) +
+  labs(x = "Kenaikan IPM per +10 poin persen", y = NULL) + theme(legend.position = "bottom")
+m_sama <- lm(Y ~ X1 + X2 + X3 + pulau + kota, data = d)
+m_beda <- lm(Y ~ (X1 + X2 + X3) * pulau + kota, data = d)
+uK <- anova(m_sama, m_beda)
+```
+
+**Interpretasi:**
+
+- Untuk memeriksa apakah hasil model nasional berlaku pada berbagai
+  wilayah Indonesia, regresi diestimasi secara terpisah untuk setiap
+  kelompok pulau. @fig-pulau menunjukkan perkiraan kenaikan IPM yang
+  berkaitan dengan peningkatan 10 poin persentase akses internet dan
+  pendidikan SMA+.
+
+- Secara umum, pendidikan menunjukkan hubungan yang lebih kuat dengan
+  IPM dibandingkan akses internet di seluruh pulau. Besarnya hubungan berbeda antarwilayah. Hubungan pendidikan positif dan signifikan di semua pulau. Hubungan internet positif di semua pulau, tetapi selang kepercayaannya mencakup nol di Jawa dan Papua, sehingga di dua wilayah itu tidak terbukti signifikan.
+
+- Uji perbedaan kemiringan menghasilkan **F = `r f(uK$F[2], 2)`** dan **p = `r fp(uK$"Pr(>F)"[2])`**,
+  yang menunjukkan bahwa kekuatan hubungan indikator pembangunan dengan
+  IPM memang berbeda antar pulau. Namun demikian, temuan utama tetap
+  konsisten: daerah dengan tingkat pendidikan yang lebih tinggi
+  cenderung memiliki IPM yang lebih tinggi.
+
+**Temuan Utama:**
+
+Pendidikan secara konsisten memiliki hubungan yang lebih kuat dengan IPM
+dibandingkan akses internet pada seluruh kelompok wilayah, meskipun
+besarnya hubungan berbeda antar pulau.
+
+# Kesenjangan wilayah
+
+```{r}
+#| label: peta
+#| output: false
+
+
+PATH_PETA <- file.path(root, "peta")
+
+kunci <- function(s)
+  gsub("[^A-Z]", "", gsub("ADMINISTRASI|KABUPATEN", "", toupper(s)))
+
+# =====================================================
+# GEOJSON KABUPATEN/KOTA
+# =====================================================
+
+fs <- list.files(
+  file.path(PATH_PETA, "Kabupaten"),
+  recursive = TRUE,
+  full.names = TRUE
+)
+
+fs <- fs[grepl("\\.json$", fs)]
+
+length(fs)   # harus sekitar 500+
+
+kab26 <- do.call(rbind, lapply(fs, function(fl) {
+  
+  x <- st_read(fl, quiet = TRUE)
+  
+  st_sf(
+    key = kunci(
+      gsub(
+        "_", " ",
+        sub("\\.json$", "", basename(fl))
+      )
+    ),
+    geometry = st_geometry(x)[1]
+  )
+}))
+
+kab26 <- kab26[!st_is_empty(kab26), ]
+
+# =====================================================
+# PENYESUAIAN NAMA WILAYAH
+# =====================================================
+
+ganti <- c(
+  TOBA = "TOBASAMOSIR",
+  KOTAPADANGSIDEMPUAN = "KOTAPADANGSIDIMPUAN",
+  MAHAKAMULU = "MAHAKAMHULU",
+  KEPULAUANSIAUTAGULANDANGBIARO = "SIAUTAGULANDANGBIARO",
+  PANGKAJENEKEPULAUAN = "PANGKAJENEDANKEPULAUAN",
+  KEPULAUANTANIMBAR = "MALUKUTENGGARABARAT"
+)
+
+kab26$key <- ifelse(
+  kab26$key %in% names(ganti),
+  ganti[kab26$key],
+  kab26$key
+)
+
+# =====================================================
+# FILE GEOJSON PELENGKAP
+# =====================================================
+
+peta19 <- st_read(
+  file.path(PATH_PETA, "all_kabkota_ind.geojson"),
+  quiet = TRUE
+)
+
+peta19$key <- kunci(peta19$alt_name)
+
+peta19$key[peta19$key == "KOTAPADANGSIDEMPUAN"] <- "KOTAPADANGSIDIMPUAN"
+peta19$key[peta19$key == "MAMUJUUTARA"] <- "PASANGKAYU"
+
+d$key <- kunci(d$kab)
+
+kurang <- setdiff(d$key, kab26$key)
+
+peta <- rbind(
+  kab26[kab26$key %in% d$key, c("key","geometry")],
+  peta19[peta19$key %in% kurang, c("key","geometry")]
+)
+
+g <- merge(peta, d, by = "key")
+
+g <- st_make_valid(
+  g[order(g$kode), ]
+)
+
+g$sisaan <- residuals(
+  lm(Y ~ cX1 + cX2 + cX3, data = g)
+)
+
+# =====================================================
+# BATAS PROVINSI
+# =====================================================
+
+pf <- list.files(
+  file.path(PATH_PETA, "Provinsi"),
+  pattern = "\\.json$",
+  full.names = TRUE
+)
+
+length(pf)   # harus 38
+
+prov38 <- do.call(rbind, lapply(pf, function(fl) {
+  
+  x <- st_read(fl, quiet = TRUE)
+  
+  st_sf(
+    prov = gsub(
+      "_", " ",
+      sub("\\.json$", "", basename(fl))
+    ),
+    geometry = st_union(
+      st_make_valid(
+        st_geometry(x)
+      )
+    )
+  )
+}))
+
+```
+
+```{r}
+#| label: fig-peta
+#| fig-cap: "Sisaan model tiga indikator per kabupaten/kota. Merah: IPM di bawah prediksi; biru: di atas. Garis: batas 38 provinsi."
+#| fig-height: 4.2
+ggplot() +
+  geom_sf(data = g, aes(fill = sisaan), colour = NA) +
+  geom_sf(data = prov38, fill = NA, colour = "grey20", linewidth = 0.15) +
+  scale_fill_distiller(palette = "RdBu", direction = 1, limits = c(-6, 6),
+                       oob = scales::squish, name = "Sisaan\n(poin IPM)") +
+  theme_void()
+```
+
+**Interpretasi:**
+
+- @fig-peta menunjukkan sisaan dari model yang hanya menggunakan akses
+  internet, sanitasi, dan pendidikan. Wilayah berwarna biru memiliki IPM
+  aktual lebih tinggi dari prediksi model, sedangkan wilayah merah
+  memiliki IPM lebih rendah dari prediksi.
+
+- Terlihat pola kewilayahan yang cukup jelas. Kabupaten/kota di Jawa
+  cenderung memiliki sisaan positif, sedangkan banyak wilayah di Papua
+  Barat, Papua Barat Daya, Kalimantan Utara, dan sebagian Nusa Tenggara
+  memiliki sisaan negatif. Pola ini menunjukkan bahwa variasi IPM belum
+  sepenuhnya dapat dijelaskan oleh ketiga indikator tersebut.
+
+```{r}
+#| label: fig-peta-akhir
+#| fig-cap: "Sisaan model akhir C1 (tiga indikator + pulau + status kota) per kabupaten/kota. Skala warna sama dengan peta sisaan model tiga indikator."
+#| fig-height: 4.2
+mc_akhir_g <- lm(Y ~ cX1 + cX2 + cX3 + pulau + kota, data = g)
+g$sisaan_akhir <- residuals(mc_akhir_g)
+ggplot() +
+  geom_sf(data = g, aes(fill = sisaan_akhir), colour = NA) +
+  geom_sf(data = prov38, fill = NA, colour = "grey20", linewidth = 0.15) +
+  scale_fill_distiller(palette = "RdBu", direction = 1, limits = c(-6, 6),
+                       oob = scales::squish, name = "Sisaan\n(poin IPM)") +
+  theme_void()
+```
+
+**Interpretasi:**
+
+- @fig-peta-akhir menunjukkan sisaan setelah pulau dan status kota ikut dikendalikan, dengan skala warna yang sama dengan @fig-peta agar keduanya bisa dibandingkan langsung. Simpangan baku sisaan turun dari `r f(sd(g$sisaan), 2)` poin IPM (model tiga indikator) menjadi `r f(sd(g$sisaan_akhir), 2)` poin (model akhir), sehingga peta tampak lebih pucat.
+
+- Pola blok per pulau pada @fig-peta (Jawa cenderung biru, Papua dan sebagian Nusa Tenggara merah) menyusut karena perbedaan rata-rata antarpulau kini sudah ditangkap oleh dummy wilayah. Wilayah yang masih berwarna kuat pada @fig-peta-akhir adalah kab/kota yang menyimpang dari dugaan model bahkan setelah memperhitungkan pulau dan status kota; daftarnya disajikan pada @tbl-sisaan-akhir.
+
+- Apakah sisaan model akhir masih mengelompok secara spasial diuji dengan Moran's I pada Bagian 9 (@tbl-diag-akhir).
+
+```{r}
+#| label: fig-wilayah
+#| fig-cap: "Selisih IPM terhadap Jawa pada internet, sanitasi, pendidikan, dan status kota yang sama (model akhir, SK 95% SE tergerombol provinsi)."
+#| fig-height: 3.4
+w <- cc[grep("^pulau", rownames(cc)), ]
+wd <- data.frame(Wilayah = sub("^pulau", "", rownames(w)), est = w[, 1], se = w[, 2])
+wd$Wilayah <- reorder(wd$Wilayah, -wd$est)
+ggplot(wd, aes(est, Wilayah)) +
+  geom_col(fill = oranye, width = 0.6) +
+  geom_errorbarh(aes(xmin = est - 1.96 * se, xmax = est + 1.96 * se), height = 0.2, colour = tua) +
+  geom_text(aes(x = 0.15, label = f(est, 1)), hjust = 0, colour = tua, fontface = "bold") +
+  scale_x_continuous(limits = c(NA, 0.9)) +
+  labs(x = "Selisih IPM terhadap Jawa (poin)", y = NULL)
+```
+
+**Kabupaten/kota dengan IPM paling menyimpang dari model akhir**
+
+```{r}
+#| label: tbl-sisaan-akhir
+#| tbl-cap: "Sepuluh kab/kota dengan sisaan tertinggi dan terendah pada model akhir C1 (poin IPM)"
+dsis <- data.frame(Provinsi = g$prov, Kabupaten.Kota = g$kab, Pulau = g$pulau, IPM = g$Y,
+                   Dugaan = fitted(mc_akhir_g), Sisaan = residuals(mc_akhir_g))
+atas <- head(dsis[order(-dsis$Sisaan), ], 10); atas$Arah <- "Di atas dugaan"
+bawah <- head(dsis[order(dsis$Sisaan), ], 10); bawah$Arah <- "Di bawah dugaan"
+tabel(rbind(atas, bawah)[, c("Arah", "Kabupaten.Kota", "Provinsi", "IPM", "Dugaan", "Sisaan")],
+      digits = 2, row.names = FALSE)
+```
+
+Tabel ini menjawab pertanyaan penelitian 3 pada tingkat kabupaten/kota: setelah internet, sanitasi, pendidikan, pulau, dan status kota diperhitungkan, daftar di atas adalah wilayah dengan IPM aktual paling jauh di atas atau di bawah dugaan model.
+
+Temuan tersebut konsisten dengan hasil model akhir pada @fig-wilayah.
+Setelah internet, sanitasi, pendidikan, dan status kabupaten/kota
+dikendalikan, seluruh wilayah di luar Jawa masih memiliki IPM yang lebih
+rendah dibandingkan Jawa. Kesenjangan terbesar ditemukan di Papua (−6,5
+poin), diikuti Maluku (−3,4 poin) dan Bali-Nusa Tenggara (−2,4 poin).
+
+**Temuan Utama:**
+
+Kesenjangan wilayah tetap terlihat setelah seluruh indikator pembangunan
+dalam model diperhitungkan. Dibandingkan Jawa, seluruh wilayah lain
+memiliki IPM yang lebih rendah, dengan selisih terbesar terdapat di
+Papua.
+
+# Diagnostik dan uji ketahanan
+
+```{r}
+#| label: diagnostik
+xy <- st_coordinates(st_centroid(st_transform(g, 3395)))
+W  <- nb2listw(knn2nb(knearneigh(xy, k = 6)), style = "W")
+ma_g <- lm(Y ~ cX1 + cX2 + cX3, data = g)
+mc_g <- lm(Y ~ cX1 + cX2 + cX3 + pulau + kota, data = g)
+mor_a <- lm.morantest(ma_g, W); mor_c <- lm.morantest(mc_g, W)
+sw <- shapiro.test(residuals(m0)); bp <- bptest(m0)
+rs0 <- resettest(m0, power = 2); rsC <- resettest(m_akhir, power = 2)
+```
+
+```{r}
+#| label: tbl-diagnostik
+#| tbl-cap: "Uji asumsi model aditif dan penanganannya"
+tabel(data.frame(
+  Asumsi = c("Normalitas sisaan", "Ragam homogen", "Linearitas", "Galat bebas (spasial)"),
+  Uji = c("Shapiro-Wilk", "Breusch-Pagan", "RESET (pangkat 2)", "Moran's I, 6 tetangga terdekat"),
+  `Model aditif` = c(paste("p", fp(sw$p.value)), paste("p", fp(bp$p.value)),
+                     paste("p =", fp(rs0$p.value)),
+                     sprintf("I = %s; p %s", f(mor_a$estimate[1]), fp(mor_a$p.value))),
+  Penanganan = c("n besar (513); ekor kiri dari Papua",
+                 "SE robust HC3 dan tergerombol per provinsi",
+                 sprintf("Dummy wilayah → RESET p = %s", fp(rsC$p.value)),
+                 sprintf("Dummy wilayah → I = %s; model galat spasial", f(mor_c$estimate[1]))),
+  check.names = FALSE), row.names = FALSE)
+```
+
+```{r}
+#| label: tbl-diag-akhir
+#| tbl-cap: "Uji asumsi pada model akhir C1"
+mc_g2 <- lm(Y ~ cX1 + cX2 + cX3 + pulau + kota, data = g)
+mor_f <- lm.morantest(mc_g2, W)
+tabel(data.frame(
+  Uji = c("Shapiro-Wilk (normalitas)", "Breusch-Pagan (ragam homogen)", "RESET (linearitas)", "Moran's I (6 tetangga)"),
+  Hasil = c(paste("p", fp(shapiro.test(residuals(m_akhir))$p.value)),
+            paste("p", fp(bptest(m_akhir)$p.value)),
+            paste("p =", fp(resettest(m_akhir, power = 2)$p.value)),
+            sprintf("I = %s; p %s", f(mor_f$estimate[1]), fp(mor_f$p.value)))),
+  row.names = FALSE)
+```
+
+```{r}
+#| label: fig-sisaan
+#| fig-cap: "Plot sisaan terhadap nilai dugaan dan plot normal Q-Q sisaan, model aditif."
+#| fig-height: 3.8
+dd <- data.frame(fit = fitted(m0), res = rstandard(m0), papua = factor(d$papua))
+p1 <- ggplot(dd, aes(fit, res, colour = papua)) + geom_hline(yintercept = 0, colour = "grey60") +
+  geom_point(alpha = 0.6, size = 1.3) + labs(x = "Nilai dugaan", y = "Sisaan baku", title = "Sisaan vs dugaan")
+p2 <- ggplot(dd, aes(sample = res)) + stat_qq(colour = teal, size = 1.2) + stat_qq_line(colour = tua) +
+  labs(x = "Kuantil teoretis", y = "Kuantil sisaan", title = "Normal Q-Q")
+p1 <- p1 + scale_colour_manual(values = c("0" = "grey55", "1" = oranye), guide = "none")
+gridExtra_ok <- requireNamespace("gridExtra", quietly = TRUE)
+if (gridExtra_ok) gridExtra::grid.arrange(p1, p2, ncol = 2) else { print(p1); print(p2) }
+```
+
+```{r}
+#| label: ketahanan
+sem  <- errorsarlm(Y ~ cX1 + cX2 + cX3 + kota, data = g, listw = W)
+semi <- errorsarlm(Y ~ cX1 + cX2 + cX3 + kota + cX1:cX3, data = g, listw = W)
+mm   <- lmer(Y ~ cX1 + cX2 + cX3 + kota + (1 | prov), data = d)
+rob  <- rlm(Y ~ cX1 + cX2 + cX3 + pulau + kota, data = d)
+```
+
+```{r}
+#| label: tbl-ketahanan
+#| tbl-cap: "Koefisien ketiga indikator pada berbagai spesifikasi (poin IPM per 1 poin persen)"
+ambil <- function(b) b[c("cX1", "cX2", "cX3")]
+rk <- rbind(`Model akhir C1 (OLS)` = ambil(coef(m_akhir)),
+            `Regresi robust Huber` = ambil(coef(rob)),
+            `Multilevel (intersep acak provinsi)` = ambil(fixef(mm)),
+            `Spatial Error Model` = ambil(coef(sem)))
+colnames(rk) <- c("Internet", "Sanitasi", "SMA+")
+tabel(rk, digits = 3)
+```
+
+**Interpretasi:**
+
+- @tbl-diagnostik menunjukkan bahwa model aditif awal tidak sepenuhnya memenuhi
+  asumsi regresi klasik. Uji Shapiro–Wilk mengindikasikan sisaan tidak
+  normal (p \< 0,001), uji Breusch–Pagan menunjukkan adanya
+  heteroskedastisitas (p \< 0,001), sedangkan uji RESET memberikan
+  indikasi spesifikasi model yang belum optimal (p = 0,031). Selain itu,
+  uji Moran’s I menunjukkan adanya autokorelasi spasial pada sisaan (I =
+  0,36; p \< 0,001).
+
+- Sebagian pelanggaran tersebut berkaitan dengan perbedaan karakteristik
+  antarwilayah, terutama antara Jawa dan Papua. Setelah dummy wilayah
+  ditambahkan, hubungan model menjadi lebih sesuai dengan asumsi
+  linearitas (RESET p = 0,333) dan autokorelasi spasial menurun (Moran’s
+  I = 0,17).
+
+- Untuk memastikan hasil tidak bergantung pada satu metode saja,
+  analisis diulang menggunakan beberapa spesifikasi alternatif, yaitu
+  regresi robust Huber, model multilevel dengan intersep acak provinsi,
+  dan *Spatial Error Model*. Hasilnya disajikan pada @tbl-ketahanan.
+
+- Koefisien ketiga indikator relatif stabil pada seluruh spesifikasi.
+  Pendidikan tetap menjadi prediktor terkuat, diikuti oleh akses
+  internet dan sanitasi. Selain itu, interaksi Internet × Pendidikan
+  tetap tidak signifikan pada model spasial (p = `r fp(summary(semi)$Coef["cX1:cX3", 4])`), sehingga
+  kesimpulan utama penelitian tidak berubah.
+
+**Temuan Utama:**
+
+Meskipun beberapa asumsi model awal tidak sepenuhnya terpenuhi, hasil
+utama penelitian tetap konsisten pada berbagai pendekatan analisis.
+Pendidikan tetap menjadi prediktor terkuat IPM, sedangkan bukti
+interaksi internet × pendidikan tidak bertahan setelah faktor wilayah
+diperhitungkan.
+
+# Visualisasi interaksi
+
+```{r}
+#| label: fig-interaksi
+#| fig-cap: "Prediksi IPM terhadap akses internet pada tiga tingkat pendidikan, 472 kab/kota di luar Papua. Pita: SK 95% (SE tergerombol per provinsi)."
+#| fig-width: 10
+#| fig-height: 5.4
+dn <- subset(d, papua == 0)
+for (v in c("X1", "X2", "X3")) dn[[paste0("c", v)]] <- dn[[v]] - mean(dn[[v]])
+dn$pulau <- droplevels(dn$pulau)
+mA <- lm(Y ~ cX1 + cX2 + cX3 + cX1:cX3, data = dn)
+mB <- lm(Y ~ cX1 + cX2 + cX3 + cX1:cX3 + pulau + kota, data = dn)
+uji <- function(m) coeftest(m, vcov = vcovCL(m, cluster = ~prov, type = "HC1"))["cX1:cX3", ]
+sd_X3 <- sd(dn$X3)
+grid <- expand.grid(cX1 = seq(min(dn$cX1), max(dn$cX1), length.out = 100),
+                    cX3 = c(-1, 0, 1) * sd_X3, cX2 = 0)
+prediksi <- function(m, grid, data) {
+  V  <- vcovCL(m, cluster = ~prov, type = "HC1")
+  tt <- delete.response(terms(m))
+  Xbar <- t(sapply(seq_len(nrow(grid)), function(i) {
+    nd <- data; nd$cX1 <- grid$cX1[i]; nd$cX2 <- grid$cX2[i]; nd$cX3 <- grid$cX3[i]
+    colMeans(model.matrix(tt, nd, xlev = m$xlevels))
+  }))
+  fit <- drop(Xbar %*% coef(m)); se <- sqrt(rowSums((Xbar %*% V) * Xbar))
+  data.frame(grid, fit = fit, lwr = fit - 1.96 * se, upr = fit + 1.96 * se)
+}
+lab <- function(nama, m) { u <- uji(m); sprintf("%s\nX1×X3: b = %s; p = %s", nama, f(u[1], 4), fp(u[4])) }
+plot_df <- rbind(cbind(prediksi(mA, grid, dn), Model = lab("A. Tanpa kendali wilayah", mA)),
+                 cbind(prediksi(mB, grid, dn), Model = lab("B. + wilayah pulau & status kota", mB)))
+plot_df$Internet <- plot_df$cX1 + mean(dn$X1)
+plot_df$Pendidikan <- factor(plot_df$cX3, levels = c(-1, 0, 1) * sd_X3,
+  labels = sprintf(c("SMA+ rendah (%s%%)", "SMA+ rata-rata (%s%%)", "SMA+ tinggi (%s%%)"),
+                   f(mean(dn$X3) + c(-1, 0, 1) * sd_X3, 1)))
+warna <- c("#A8D8DF", "#4FB3C0", "#10707C")
+ggplot(plot_df, aes(Internet, fit, colour = Pendidikan, fill = Pendidikan)) +
+  geom_ribbon(aes(ymin = lwr, ymax = upr), alpha = 0.18, colour = NA) +
+  geom_line(linewidth = 1.2) + facet_wrap(~ Model) +
+  scale_colour_manual(values = warna) + scale_fill_manual(values = warna) +
+  labs(x = "Persentase penduduk mengakses internet (X1, %)", y = "Dugaan IPM (poin)",
+       colour = "Pendidikan (X3):", fill = "Pendidikan (X3):") +
+  theme(legend.position = "bottom", strip.text = element_text(face = "bold", hjust = 0),
+        panel.border = element_rect(colour = "#D9D9D9", fill = NA))
+```
+
+**Interpretasi:**
+
+Visualisasi ini memakai 472 kab/kota di luar Papua agar pola interaksi tidak didominasi oleh 41 wilayah Papua yang berada di ujung bawah sebaran internet dan pendidikan; karena itu nilai p Panel A (0,002) berbeda dari @tbl-interaksi yang memakai seluruh 513 wilayah. @fig-interaksi memperlihatkan hubungan antara akses internet dan IPM pada tiga
+tingkat pendidikan SMA+ sebelum dan sesudah wilayah serta status
+kabupaten/kota dikendalikan.
+
+Pada **Panel A**, garis dengan pendidikan tinggi memiliki kemiringan
+yang lebih curam sehingga tampak bahwa hubungan internet dan IPM lebih
+kuat pada daerah berpendidikan tinggi. Pola ini konsisten dengan hasil
+model interaksi awal yang menunjukkan koefisien Internet × Pendidikan
+signifikan.
+
+Namun, pada **Panel B**, ketiga garis menjadi hampir sejajar setelah
+variabel wilayah dan status kota dimasukkan ke dalam model. Sejalan
+dengan itu, koefisien interaksi mengecil dan tidak lagi signifikan
+(p = `r fp(uji(mB)[4])`).
+
+Temuan ini menunjukkan bahwa pola interaksi yang terlihat pada model
+awal sebagian besar berkaitan dengan perbedaan karakteristik wilayah dan
+tingkat urbanisasi, bukan karena internet bekerja secara berbeda pada
+tingkat pendidikan yang berbeda.
+
+**Temuan Utama:**
+Setelah wilayah dan status kabupaten/kota diperhitungkan, tidak terdapat
+bukti yang cukup bahwa hubungan internet dan IPM berbeda menurut tingkat
+pendidikan. Interaksi yang tampak pada model awal sebagian besar
+dijelaskan oleh faktor kewilayahan.
+
+# Kesimpulan
+
+::: {.callout-note appearance="simple"}
+- Model akhir menjelaskan sekitar **89% variasi IPM**.
+
+- **Pendidikan SMA+** merupakan prediktor terkuat.
+
+- Interaksi **internet × pendidikan** tidak bertahan setelah wilayah
+  dikendalikan.
+
+- Kesenjangan wilayah tetap signifikan, terutama antara **Jawa dan
+  Papua**.
+
+- Hasil menunjukkan **asosiasi statistik**, bukan hubungan sebab-akibat.
+:::
+
+Penelitian ini menunjukkan bahwa akses internet, sanitasi layak, dan
+pendidikan SMA+ berasosiasi positif dengan IPM pada 513 kabupaten/kota
+di Indonesia. Model akhir mampu menjelaskan sekitar **89% variasi IPM**,
+dengan **pendidikan SMA+ sebagai prediktor terkuat**, diikuti oleh akses
+internet dan sanitasi.
+
+Interaksi **internet × pendidikan** sempat terlihat signifikan pada
+model awal, tetapi tidak lagi didukung setelah wilayah dan status
+kabupaten/kota diperhitungkan. Temuan ini menunjukkan bahwa pola yang
+tampak sebagai sinergi lebih banyak dijelaskan oleh perbedaan
+karakteristik wilayah.
+
+Selain itu, kesenjangan wilayah tetap terlihat setelah seluruh indikator
+dalam model dikendalikan. Dibandingkan Jawa, seluruh wilayah lain
+memiliki IPM yang lebih rendah, dengan selisih terbesar terdapat di
+Papua.
+
+**Pesan Metodologis:**
+
+Pola yang tampak pada data agregat dapat berubah setelah faktor pembaur
+(*confounding*) diperhitungkan. Dalam penelitian ini, wilayah terbukti
+lebih penting dalam menjelaskan variasi IPM dibandingkan interaksi
+antara internet dan pendidikan.
+
+::: {.callout-note appearance="simple"}
+## Connected? Ya. Educated? Terutama. Developed? Belum merata.
+:::
+
+# Lampiran
+
+## Efek komposisi {#sec-komposisi}
+
+```{r}
+#| label: tbl-komposisi
+#| tbl-cap: "Tambahan IPM dibanding kab/kota yang internet dan pendidikannya sama-sama rendah (dibagi di median)"
+d$grup <- with(d, ifelse(X1 >= median(X1) & X3 >= median(X3), "Keduanya tinggi",
+                 ifelse(X1 >= median(X1), "Internet saja tinggi",
+                 ifelse(X3 >= median(X3), "Pendidikan saja tinggi", "Keduanya rendah"))))
+d$Y_bersih <- residuals(lm(Y ~ pulau + kota, data = d))
+kom <- d |> group_by(grup) |>
+  summarise(n = n(), `% kota` = 100 * mean(kota), mentah = mean(Y), bersih = mean(Y_bersih))
+ref <- kom[kom$grup == "Keduanya rendah", ]
+kom$`Data mentah` <- kom$mentah - ref$mentah
+kom$`+ wilayah & kota` <- kom$bersih - ref$bersih
+kom <- kom[match(c("Keduanya rendah", "Internet saja tinggi", "Pendidikan saja tinggi", "Keduanya tinggi"), kom$grup), ]
+tabel(kom[, c("grup", "n", "% kota", "Data mentah", "+ wilayah & kota")] |> rename(Kelompok = grup),
+      digits = 1, row.names = FALSE)
+```
+
+**Interpretasi:**
+
+- @tbl-komposisi menunjukkan bahwa pada data mentah, kelompok dengan internet
+  dan pendidikan yang sama-sama tinggi memiliki IPM **9,3 poin lebih
+  tinggi** dibanding kelompok yang keduanya rendah. Namun setelah
+  wilayah dan status kabupaten/kota dikendalikan, keunggulan tersebut
+  turun menjadi sekitar **4 poin** dan tidak lagi berbeda dari kelompok
+  yang hanya memiliki pendidikan tinggi.
+
+- Temuan ini menunjukkan bahwa sebagian pola yang tampak sebagai sinergi
+  antara internet dan pendidikan sebenarnya dipengaruhi oleh perbedaan
+  komposisi wilayah dan tingkat urbanisasi.
+
+  **Inti temuan:** keunggulan kelompok "internet tinggi + pendidikan
+  tinggi" pada data mentah sebagian besar dijelaskan oleh faktor wilayah
+  dan status kota.
+
+## Perbandingan skema pengelompokan wilayah
+
+```{r}
+#| label: tbl-skema
+#| tbl-cap: "Skema wilayah alternatif (semua dengan tiga indikator dan dummy kota)"
+d$jawa <- as.integer(d$pulau == "Jawa")
+d$kti  <- as.integer(d$pulau %in% c("Kalimantan", "Sulawesi", "Bali-Nusra", "Maluku", "Papua"))
+d$w5   <- factor(ifelse(d$pulau %in% c("Bali-Nusra", "Maluku"), "Lainnya", as.character(d$pulau)))
+skema <- list(`Tanpa wilayah` = Y ~ cX1 + cX2 + cX3 + kota,
+              `Jawa vs luar Jawa` = Y ~ cX1 + cX2 + cX3 + kota + jawa,
+              `KBI vs KTI` = Y ~ cX1 + cX2 + cX3 + kota + kti,
+              `Lima kelompok` = Y ~ cX1 + cX2 + cX3 + kota + w5,
+              `Tujuh wilayah (dipakai)` = Y ~ cX1 + cX2 + cX3 + kota + pulau,
+              `Efek tetap provinsi` = Y ~ cX1 + cX2 + cX3 + kota + prov)
+tabel(do.call(rbind, lapply(names(skema), function(n) {
+  m <- lm(skema[[n]], data = d)
+  data.frame(Skema = n, Parameter = length(coef(m)), `R² adj` = summary(m)$adj.r.squared,
+             AIC = AIC(m), BIC = BIC(m), `RMSE CV` = cv_rmse(skema[[n]], d), check.names = FALSE)
+})), digits = 3, row.names = FALSE)
+```
+
+**Interpretasi:**
+
+@tbl-skema menunjukkan bahwa penambahan informasi wilayah secara konsisten
+meningkatkan kualitas model dibandingkan model tanpa kendali wilayah.
+Nilai Adjusted R² meningkat, sedangkan AIC, BIC, dan RMSE validasi
+silang menurun.
+
+Model dengan **tujuh wilayah pulau** dipilih sebagai model utama karena
+memberikan keseimbangan yang baik antara kemampuan penjelasan dan
+kemudahan interpretasi. Meskipun model efek tetap provinsi memiliki
+kecocokan yang lebih tinggi, jumlah parameternya jauh lebih besar
+sehingga kurang praktis untuk interpretasi substantif.
+
+> **Inti temuan:** variasi IPM lebih banyak dijelaskan oleh perbedaan
+> wilayah daripada oleh interaksi antar indikator pembangunan.
+
+## Sumber dan perangkat
+
+- Data: Badan Pusat Statistik, [www.bps.go.id](https://www.bps.go.id):
+  *Publikasi Indeks Pembangunan Manusia 2025* dan *Survei Sosial Ekonomi
+  Nasional (Susenas) Maret 2025*.
+- Batas wilayah:
+  [mashadinoor/Indonesia-Geojson-2026](https://github.com/mashadinoor/Indonesia-Geojson-2026);
+  geometri kosong dilengkapi dari
+  [eppofahmi/geojson-indonesia](https://github.com/eppofahmi/geojson-indonesia)
+  (Dukcapil 2019).
+- Analisis: `r R.version.string`; paket car, sandwich, lmtest, MASS,
+  lme4, sf, spdep, spatialreg, ggplot2, dplyr, knitr.
