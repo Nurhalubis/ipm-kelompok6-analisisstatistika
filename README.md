@@ -39,7 +39,7 @@ Model akhir (tiga indikator + 7 wilayah pulau + status kota) menjelaskan 89% var
 │   ├── laporan_IPM_kelompok6.html  hasil render laporan analisis
 │   ├── koefisien_per_pulau.csv     koefisien per +10 poin persen, nasional & per pulau
 │   └── gambar/                     grafik, peta, dan ringkasan visual
-├── laporan/                        laporan format Produk Multimedia IPB (.docx)
+├── laporan/                        laporan format Produk Multimedia IPB (.docx) dan Penyajian Dokumen Tugas Akhir [20260803]
 └── poster/                         poster infografis A3 dan kode QR (utama: ipb.link)
 ```
 
