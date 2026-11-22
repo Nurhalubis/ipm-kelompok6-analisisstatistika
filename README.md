@@ -85,4 +85,4 @@ Catatan: Kabupaten Puncak (Papua Tengah) tidak tersedia dalam sumber data sehing
 
 ## Lisensi dan atribusi
 
-Data © BPS. Batas wilayah dari [mashadinoor/Indonesia-Geojson-2026](https://github.com/mashadinoor/Indonesia-Geojson-2026) (MIT) dan [eppofahmi/geojson-indonesia](https://github.com/eppofahmi/geojson-indonesia).
+Data © Badan Pusat Statistik (BPS): www.bps.go.id — Publikasi Indeks Pembangunan Manusia 2025 & Susenas Maret 2025. Batas wilayah dari [mashadinoor/Indonesia-Geojson-2026](https://github.com/mashadinoor/Indonesia-Geojson-2026) (MIT) dan [eppofahmi/geojson-indonesia](https://github.com/eppofahmi/geojson-indonesia).
